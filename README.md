@@ -35,7 +35,7 @@ To run the jobs locally, you can simply run:
 *Note:* the jobs stream the web data from Amazon S3.
 This means if you use it locally, your computer will be downloading approximately a gigabyte per file.
 
-# Running via Elastic MapReduce
+### Running via Elastic MapReduce
 
 As the Common Crawl dataset lives in the Amazon Public Datasets program, you can access and process it without incurring any transfer costs.
 The only cost that you incur is the cost of the machines and Elastic MapReduce itself.
@@ -51,6 +51,15 @@ By default, the configuration file only launches two machines, both using spot i
 
 If you are running this for a full fledged job, you will likely want to make the master server a normal instance, as spot instances can disappear at any time.
 
-# License
+## Running it over all Common Crawl
+
+To run your mrjob task over the entirety of the Common Crawl dataset, you can use download the WARC file listing found at `CC-MAIN-YYYY-WW/warc.paths.gz`.
+
+As an example, the [July 2014 crawl](http://commoncrawl.org/july-2014-crawl-data-available/) has 63,560 WARC files listed by [warc.paths.gz](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-23/warc.path.gz).
+
+It is highly recommended to run over batches of WARC files at a time and then perform a secondary reduce over those results.
+Running a single job over the entirety of the dataset complicates the situation substantially.
+
+## License
 
 MIT License, as per `LICENSE`
