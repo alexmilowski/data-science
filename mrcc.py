@@ -40,3 +40,6 @@ class CCJob(MRJob):
 
   def reducer(self, key, value):
     yield key, sum(value)
+
+if __name__ == '__main__':
+  CCJob.run()
