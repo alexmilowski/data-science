@@ -57,9 +57,11 @@ Developing and testing your code doesn't actually need a Hadoop installation.
 
 To run the jobs locally, you can simply run:
 
-    python tag_counter.py --conf-path mrjob.conf --no-output --output-dir out input/test-1.warc
+    # we need to turn the relative paths in the input files into absolute paths before passing them to mrjob§
+    python absolutize_path.py < input/test-1.warc | python tag_counter.py --conf-path mrjob.conf --no-output --output-dir out
+    
     # or 'local' simulates more features of Hadoop such as counters
-    python tag_counter.py -r local --conf-path mrjob.conf --no-output --output-dir out input/test-1.warc
+    python absolutize_path.py < input/test-1.warc | python tag_counter.py -r local --conf-path mrjob.conf --no-output --output-dir out
 
 ### Running via Elastic MapReduce
 
