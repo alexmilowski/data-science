@@ -3,7 +3,11 @@
 # mrjob starter kit
 
 This project demonstrates using Python to process the Common Crawl dataset with the mrjob framework.
-The first task we show counts HTML tag usage across the web.
+There are three tasks to run using the three different data formats:
+
++ Counting HTML tags using Common Crawl's raw response data (WARC files)
++ Analysis of web servers using Common Crawl's metadata (WAT files)
++ Word count using Common Crawl's extract text (WET files)
 
 ## Setup
 
@@ -19,9 +23,12 @@ If you would like to create a virtual environment to protect local dependencies:
     source env/bin/activate
     pip install -r requirements.txt
 
+To develop locally, you'll need at least three data files -- one for each format the crawl uses.
+These can either be downloaded by running the `get-data.sh` command line program or manually by grabbing the [WARC](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-35/segments/1408500800168.29/warc/CC-MAIN-20140820021320-00000-ip-10-180-136-8.ec2.internal.warc.gz), [WAT](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-35/segments/1408500800168.29/wat/CC-MAIN-20140820021320-00000-ip-10-180-136-8.ec2.internal.warc.wat.gz), and [WET](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-35/segments/1408500800168.29/wet/CC-MAIN-20140820021320-00000-ip-10-180-136-8.ec2.internal.warc.wet.gz) files.
+
 ## Running the code
 
-The example code included runs a HTML tag counter over the raw web data.
+The example code includes three tasks, the first of which runs a HTML tag counter over the raw web data.
 One could use it to see how well HTML5 is being adopted or to see how strangely people use heading tags.
 
     "h1" 520487
@@ -40,6 +47,9 @@ One could use it to see how well HTML5 is being adopted or to see how strangely 
     "h15" 5
     "h21" 1
 
+We'll be using `tag_counter.py` as our primary task, which runs over WARC files.
+To run the other examples, `server_analysis.py` (WAT) or `word_count.py` (WET), simply run that Python script whilst using the relevant input format.
+
 ### Running locally
 
 Running the code locally is made incredibly simple thanks to mrjob.
@@ -47,12 +57,9 @@ Developing and testing your code doesn't actually need a Hadoop installation.
 
 To run the jobs locally, you can simply run:
 
-    python mrcc.py --conf-path mrjob.conf --no-output --output-dir out input/test-1.txt
-    # or 'local' simulates more features of Hadoop
-    python mrcc.py -r local --conf-path mrjob.conf --no-output --output-dir out input/test-1.txt
-
-*Note:* the jobs stream the web data from Amazon S3.
-This means if you use it locally, your computer will be downloading approximately a gigabyte per file.
+    python tag_counter.py --conf-path mrjob.conf --no-output --output-dir out input/test-1.warc
+    # or 'local' simulates more features of Hadoop such as counters
+    python tag_counter.py -r local --conf-path mrjob.conf --no-output --output-dir out input/test-1.warc
 
 ### Running via Elastic MapReduce
 
@@ -61,12 +68,12 @@ The only cost that you incur is the cost of the machines and Elastic MapReduce i
 
 By default, EMR machines run with Python 2.6.
 The configuration file automatically installs Python 2.7 on your cluster for you.
-The steps are documented in `mrjob.conf`.
+The steps to do this are documented in `mrjob.conf`.
 
 To run the job on Amazon Elastic MapReduce (their automated Hadoop cluster offering), you need to add your AWS access key ID and AWS access key to `mrjob.conf`.
-By default, the configuration file only launches two machines, both using spot instances to save money.
+By default, the configuration file only launches two machines, both using spot instances to be cost effective.
 
-    python mrcc.py -r emr --conf-path mrjob.conf --no-output --output-dir out input/test-100.txt
+    python tag_counter.py -r emr --conf-path mrjob.conf --no-output --output-dir out input/test-100.warc
 
 If you are running this for a full fledged job, you will likely want to make the master server a normal instance, as spot instances can disappear at any time.
 
@@ -74,10 +81,13 @@ If you are running this for a full fledged job, you will likely want to make the
 
 To run your mrjob task over the entirety of the Common Crawl dataset, you can use download the WARC file listing found at `CC-MAIN-YYYY-WW/warc.paths.gz`.
 
-As an example, the [July 2014 crawl](http://commoncrawl.org/july-2014-crawl-data-available/) has 63,560 WARC files listed by [warc.paths.gz](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-23/warc.path.gz).
+As an example, the [August 2014 crawl](http://commoncrawl.org/august-2014-crawl-data-available/) has 52,849 WARC files listed by [warc.paths.gz](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-35/warc.paths.gz).
 
 It is highly recommended to run over batches of WARC files at a time and then perform a secondary reduce over those results.
 Running a single job over the entirety of the dataset complicates the situation substantially.
+
+You'll also want to place your results in an S3 bucket instead of having them streamed back to your local machine.
+For full details on this, refer to the mrjob documentation.
 
 ## Running with PyPy
 
