@@ -36,7 +36,7 @@ class CCJob(MRJob):
       self.increment_counter('commoncrawl', 'processed_records', 1)
 
   def combiner(self, key, value):
-    yield key, sum(value)
+    return self.reducer(key, value)
 
   def reducer(self, key, value):
     yield key, sum(value)
