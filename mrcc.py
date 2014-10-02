@@ -35,8 +35,9 @@ class CCJob(MRJob):
         yield key, value
       self.increment_counter('commoncrawl', 'processed_records', 1)
 
+  # TODO: Make the combiner use the reducer by default
   def combiner(self, key, value):
-    return self.reducer(key, value)
+    yield key, sum(value)
 
   def reducer(self, key, value):
     yield key, sum(value)
