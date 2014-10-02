@@ -17,7 +17,7 @@ class ServerAnalysis(CCJob):
     try:
       server = data['Envelope']['Payload-Metadata']['HTTP-Response-Metadata']['Headers']['Server']
       yield server, 1
-      self.increment_counter('commoncrawl', 'process_server_headers', 1)
+      self.increment_counter('commoncrawl', 'processed_server_headers', 1)
     except KeyError:
       pass
     self.increment_counter('commoncrawl', 'processed_pages', 1)
