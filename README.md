@@ -9,6 +9,9 @@ There are three tasks to run using the three different data formats:
 + Analysis of web servers using Common Crawl's metadata (WAT files)
 + Word count using Common Crawl's extract text (WET files)
 
+In addition, there is a more complex version of the server analysis tool that will only count unique domains.
+It does this through using an additional reduce step and is a good example of a more complex MapReduce job.
+
 ## Setup
 
 To develop locally, you will need to install the `mrjob` Hadoop streaming framework, the `boto` library for AWS, the `warc` library for accessing the web data, and `gzipstream` to allow Python stream decompress gzip files.
