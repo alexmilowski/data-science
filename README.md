@@ -10,7 +10,7 @@ There are three tasks to run using the three different data formats:
 + Word count using Common Crawl's extract text (WET files)
 
 In addition, there is a more complex version of the server analysis tool that will only count unique domains.
-It does this through using an additional reduce step and is a good example of a more complex MapReduce job.
+This provides a good example of a more complex MapReduce job that involves an additional reduce step.
 
 ## Setup
 
@@ -82,14 +82,15 @@ By default, the configuration file only launches two machines, both using spot i
 
 If you are running this for a full fledged job, you will likely want to make the master server a normal instance, as spot instances can disappear at any time.
 
-## Running it over all Common Crawl
+## Running it over all of Common Crawl
 
-To run your mrjob task over the entirety of the Common Crawl dataset, you can use download the WARC file listing found at `CC-MAIN-YYYY-WW/warc.paths.gz`.
+To run your mrjob task over the entirety of the Common Crawl dataset, you can use the WARC, WAT, or WET file listings found at `CC-MAIN-YYYY-WW/[warc|wat|wet].paths.gz`.
 
 As an example, the [August 2014 crawl](http://commoncrawl.org/august-2014-crawl-data-available/) has 52,849 WARC files listed by [warc.paths.gz](https://aws-publicdatasets.s3.amazonaws.com/common-crawl/crawl-data/CC-MAIN-2014-35/warc.paths.gz).
 
-It is highly recommended to run over batches of WARC files at a time and then perform a secondary reduce over those results.
+It is highly recommended to run over batches of files at a time and then perform a secondary reduce over those results.
 Running a single job over the entirety of the dataset complicates the situation substantially.
+We also recommend having [N map jobs for the N files](https://groups.google.com/forum/#!topic/mrjob/o9t5FrgkMCs) you'll be attempting such that if there is a transient error, the minimal amount of work will be lost.
 
 You'll also want to place your results in an S3 bucket instead of having them streamed back to your local machine.
 For full details on this, refer to the mrjob documentation.
