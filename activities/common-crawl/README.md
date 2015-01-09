@@ -94,11 +94,49 @@ The output is in the file `out/part-00000`.
     
 # Run it on AWS EMR #
 
+If you have not signed up for AWS, you'll need to do that first by visiting http://aws.amazon.com/
+
 ## AWS Setup ##
 
-Use the following procedure to setup an account
+### AWS User/Group ###
 
- 1. Visit (http://aws.amazon.com/)
+If you do not have a user/group with access to EMR, you'll need to do the following procedure.
 
+First, you need to setup a user to run EMR:
+
+ 1. Visit http://aws.amazon.com/ and sign up for an account.
+ 2. Select the "Identity and Access Management" (or IAM) from your console or visit https://console.aws.amazon.com/iam/home
+ 3. Select "Users" from the list on the left.
+ 3. Click on the "Create New Users"
+ 4. Enter a username for youself and create the user.
+ 5. The next screen will give you an option to download the credentials for this user.  Do so and store them in a safe place.  You will not be able to retrieve them again.
+
+Second, you need to create a group with the right roles:
+
+ 1. Select "Groups" from the list on the left.
+ 2. Click on "Create New Group".
+ 3. Enter a name and click on "Next Step".
+ 4. Scroll down to "Amazon Elastic MapReduce Full Access" click on "Select".
+ 5. Once the policy document is displayed, click on "Next Step".
+ 6. Click on "Create Group" to create the group.
+ 
+Third, you need to assign your user to the group:
+
+ 1. Select the checkbox next to your group.
+ 2. Click on the "Group Actions" drop-down menu and click on "Add Users to Group".
+ 3. Select your user by clicking on the checkbox.
+ 4. Click on "Add Users".
+
+### Configure mrjob ###
+
+Setup your environment:
+
+   1. Edit the mrjob.conf and add your AWS access key and secret.
+   2. Package the library: tar cfz mrcc.tar.gz mrcc.py
+   3. Create an S3 bucket for the output.
+   
+To run the tag count on one input:
+
+    python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{yourbucket}/cc-test input/test-1.warc
 
 # Discussion Questions #
