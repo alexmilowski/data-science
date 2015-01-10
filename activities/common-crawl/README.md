@@ -32,6 +32,24 @@ code for the [Common Crawl - mrjob starter kit](https://github.com/commoncrawl/c
 This will download the code into whatever directory you are in when you issue that command.  You should then have a directory called 'cc-mrjob'.  The setup from now on 
 will assume you are in the same directory.
 
+If you do not have this repository, clone this into a parallel directory:
+
+   https://github.com/alexmilowski/data-science.git
+   
+You should now have two parallel directories:
+
+    .../cc-mrjob/
+    .../data-science/
+   
+Copy these files into the `cc-mrjob` directory from `data-science/activities/common-crawl` :
+
+   mrcc.py
+   mrcc.py.tar.gz
+   mrjob.conf
+   
+Note: The modified code just fixes issues with pulling the common crawl data from S3 and the `mrjob.conf` is a configuration of EMR bit more specific to this activity.
+
+
 ## Setup Python ##
 
 You should install [Python 2.7.8](https://www.python.org/download/releases/2.7.8/) locally so you can run this example.  If you have previous versions 
@@ -129,14 +147,27 @@ Third, you need to assign your user to the group:
 
 ### Configure mrjob ###
 
-Setup your environment:
+First you need to configure mrjob to access your AWS account:
 
-   1. Edit the mrjob.conf and add your AWS access key and secret.
-   2. Package the library: tar cfz mrcc.tar.gz mrcc.py
-   3. Create an S3 bucket for the output.
+   1. Edit the mrjob.conf
+   2. Locate the `#aws_access_key_id:` and `#aws_secret_access_key:` lines.
+   3. Remove the hash (#) and add your AWS key and secret after the colon (:).  You should have these from previously creating the user.
    
-To run the tag count on one input:
+Second, you need to create an output bucket on S3:
 
-    python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{yourbucket}/cc-test input/test-1.warc
+   1. Go to https://aws.amazon.com/ in your browser.
+   2. Click on the 'S3' service link.
+   3. Click on the 'Create Bucket' button.
+   4. Enter a name and hit create.
+   
+Keep in mind that the bucket name is unique to all of Amazon.  If you use some common name, it is likely to clash with other 
+users.  One suggestion is to use a common prefix (e.g. a domain name) for all your bucket names.
 
+To run the tag count on EMR for one input, do the following:
+
+    time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{your-bucket-name}/cc-test-1 --source s3 input/test-1.warc
+
+m1.medium 14m22s
+m1.large  10m45s
+    
 # Discussion Questions #
