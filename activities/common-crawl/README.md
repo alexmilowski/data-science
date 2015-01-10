@@ -116,8 +116,6 @@ If you have not signed up for AWS, you'll need to do that first by visiting http
 
 ## AWS Setup ##
 
-### AWS User/Group ###
-
 If you do not have a user/group with access to EMR, you'll need to do the following procedure.
 
 First, you need to setup a user to run EMR:
@@ -145,15 +143,17 @@ Third, you need to assign your user to the group:
  3. Select your user by clicking on the checkbox.
  4. Click on "Add Users".
 
-### Configure mrjob ###
+## Configure mrjob ##
 
-First you need to configure mrjob to access your AWS account:
+You need to configure mrjob to access your AWS account:
 
    1. Edit the mrjob.conf
    2. Locate the `#aws_access_key_id:` and `#aws_secret_access_key:` lines.
    3. Remove the hash (#) and add your AWS key and secret after the colon (:).  You should have these from previously creating the user.
    
-Second, you need to create an output bucket on S3:
+## Setup an Output Bucket on S3 ##
+
+You need to create an output bucket on S3 for the results of your computation:
 
    1. Go to https://aws.amazon.com/ in your browser.
    2. Click on the 'S3' service link.
@@ -163,11 +163,8 @@ Second, you need to create an output bucket on S3:
 Keep in mind that the bucket name is unique to all of Amazon.  If you use some common name, it is likely to clash with other 
 users.  One suggestion is to use a common prefix (e.g. a domain name) for all your bucket names.
 
+## Run the Code on EMR ##
+
 To run the tag count on EMR for one input, do the following:
 
     time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{your-bucket-name}/cc-test-1 --source s3 input/test-1.warc
-
-m1.medium 14m22s
-m1.large  10m45s
-    
-# Discussion Questions #
