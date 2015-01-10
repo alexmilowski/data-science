@@ -165,6 +165,8 @@ users.  One suggestion is to use a common prefix (e.g. a domain name) for all yo
 
 ## Run the Code on EMR ##
 
+In the previous step, you created an output bucket.  In the example below, replace `{your-bucket-name}` with the name of the bucket you created.
+
 To run the tag count on EMR for one input, do the following:
 
     time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{your-bucket-name}/cc-test-1 --source s3 input/test-1.warc
