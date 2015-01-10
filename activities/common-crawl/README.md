@@ -41,11 +41,11 @@ You should now have two parallel directories:
     .../cc-mrjob/
     .../data-science/
    
-Copy these files into the `cc-mrjob` directory from `data-science/activities/common-crawl` :
+Copy these files from `data-science/activities/common-crawl` to the `cc-mrjob` directory :
 
-   mrcc.py
-   mrcc.py.tar.gz
-   mrjob.conf
+    mrcc.py
+    mrcc.py.tar.gz
+    mrjob.conf
    
 Note: The modified code just fixes issues with pulling the common crawl data from S3 and the `mrjob.conf` is a configuration of EMR bit more specific to this activity.
 
