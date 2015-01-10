@@ -34,7 +34,7 @@ will assume you are in the same directory.
 
 If you do not have this repository, clone this into a parallel directory:
 
-   https://github.com/alexmilowski/data-science.git
+    get clone https://github.com/alexmilowski/data-science.git
    
 You should now have two parallel directories:
 
