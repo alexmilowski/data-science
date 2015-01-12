@@ -15,7 +15,7 @@ The code provided and activities will use the [tweepy](https://github.com/tweepy
 Twitter data can be accessed over the Web by creating an application on their site and then using the access keys
 they provide for the application in your program.  
 
-Note: You will need to have a Twitter account to create an applicaiton.
+Note: You will need to have a Twitter account to create an application.
 
 To create an application, follow this procedure:
 
