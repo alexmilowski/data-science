@@ -1,7 +1,7 @@
 # Common Crawl Exemplar #
 
 This activity will step you through the process of running various Map/Reduce (MR) processes 
-on the [Common Crawl](http://commoncrawl.org/) data set hostest by [AWS](http://aws.amazon.com).
+on the [Common Crawl](http://commoncrawl.org/) data set hosted by [AWS](http://aws.amazon.com).
 
 In this activity you will:
 
@@ -24,7 +24,7 @@ matches your deployment environment (likely Linux).  You can run a Linux OS loca
 
 ## Get the Code via Git ##
 
-You need to install git from [github](http://github.com) and you're already on their site.  If you haven't already done so, signup for an account and clone the 
+You need to install git from [github](http://github.com) and you're already on their site.  If you haven't already done so, sign up for an account and clone the 
 code for the [Common Crawl - mrjob starter kit](https://github.com/commoncrawl/cc-mrjob):
 
     git clone https://github.com/commoncrawl/cc-mrjob.git
@@ -34,7 +34,7 @@ will assume you are in the same directory.
 
 If you do not have this repository, clone this into a parallel directory:
 
-    get clone https://github.com/alexmilowski/data-science.git
+    git clone https://github.com/alexmilowski/data-science.git
    
 You should now have two parallel directories:
 
@@ -124,7 +124,7 @@ First, you need to setup a user to run EMR:
  2. Select the "Identity and Access Management" (or IAM) from your console or visit https://console.aws.amazon.com/iam/home
  3. Select "Users" from the list on the left.
  3. Click on the "Create New Users"
- 4. Enter a username for youself and create the user.
+ 4. Enter a user name for yourself and create the user.
  5. The next screen will give you an option to download the credentials for this user.  Do so and store them in a safe place.  You will not be able to retrieve them again.
 
 Second, you need to create a group with the right roles:
@@ -138,9 +138,9 @@ Second, you need to create a group with the right roles:
  
 Third, you need to assign your user to the group:
 
- 1. Select the checkbox next to your group.
+ 1. Select the check box next to your group.
  2. Click on the "Group Actions" drop-down menu and click on "Add Users to Group".
- 3. Select your user by clicking on the checkbox.
+ 3. Select your user by clicking on the check box.
  4. Click on "Add Users".
 
 ## Configure mrjob ##
