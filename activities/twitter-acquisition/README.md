@@ -80,7 +80,7 @@ each call to a Twitter REST API.
 An example of this is shown in `search.py` where the first 200 tweets are collected for a search term.  You'll need to modify
 the code to add your consumer key/secret and access token/secret.
 
-### Chunking Activity ###
+### Activity: Chunking ###
 
 Suppose you are going to collect information about a particular topic (e.g. a hash tag) from Twitter and you'll be using code
 similar to `search.py` to do so.  If you remove the `200` parameter to `items()` you'll be accessing all the search results in
@@ -122,7 +122,7 @@ Here is some helper code for serialization that relies on the `json` python modu
           self.first = False
           self.out.write(json.dumps(tweet._json).encode('utf8'))
       
-### Activities: Interrupts and Resilience ###
+### Activity: Interrupts and Resilience ###
 
 If you need to shutdown your data collection, you can define an interrupt handler:
 
@@ -141,7 +141,7 @@ Things to consider:
   * How do you make your process resilient?
 
   
-### Activities: Partitioning Data on Facets ###
+### Activity: Partitioning Data on Facets ###
 
 While it may be convenient for the programmer to write out a fixed number of tweets per file, it might be more
 useful to partition the tweets on facets based on your data collection.  For example, if you are collecting tweets over
