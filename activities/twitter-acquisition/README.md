@@ -51,3 +51,31 @@ access token secret.  You should then be able to just run the program and get a 
 
     python hello-twitter.py 
     
+## Data Collection Activities ##
+
+While real-time data collection is interesting, if you are research data provided by tweets, search is the simple way to 
+collect information - even from the recent past.  Instead of collecting information and sorting it ourselves, we'll use 
+the twitter search API to partition information by date/time and other facets to partition the collected data.
+
+Also, the [Twitter API is rate limited](https://dev.twitter.com/rest/public/rate-limiting) and so you can't make more than 
+180 requests per 15 minutes.  Fortunately, the tweepy library that we'll be using handles pausing automatically.  With the 
+partitioning and the automatic handling of rate limiting against the [Twitter REST API](https://dev.twitter.com/rest/public), 
+we'll be able to just write our code normally and the calls will pause until requests can be made again.
+
+### The Tweepy Library ###
+
+The Tweepy library handles talking directly to the various REST Web services provided by Twitter.  Many of the calls
+have practical limits to the amount of data that is returned.  If you are trying to gather large amounts of data from
+Twitter, you'll need to navigate the paged results.
+
+Tweepy provides a "cursor" functionality that handles the navigation of paged results for you.  You simply
+wrap your call in a Cursor object:
+
+    for tweet in tweepy.Cursor(api.search,q=q).items(200)
+       print tweet.text
+
+In the above example, the 200 tweets are returned from the generator regardless of how many are returned from
+each call to a Twitter REST API.
+
+An example of this is shown in `search.py` where the first 200 tweets are collected for a search term.  You'll need to modify
+the code to add your consumer key/secret and access token/secret.
