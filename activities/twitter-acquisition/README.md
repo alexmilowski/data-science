@@ -79,3 +79,91 @@ each call to a Twitter REST API.
 
 An example of this is shown in `search.py` where the first 200 tweets are collected for a search term.  You'll need to modify
 the code to add your consumer key/secret and access token/secret.
+
+### Chunking Activity ###
+
+Suppose you are going to collect information about a particular topic (e.g. a hash tag) from Twitter and you'll be using code
+similar to `search.py` to do so.  If you remove the `200` parameter to `items()` you'll be accessing all the search results in
+as much as Twitter will give you over time via the rate limiting.
+
+Change the search.py code to output data to a file and limiting the amount of tweets per file.
+
+Here are some things to consider:
+
+  * What information will you store?
+  * Tweets are actually complex JSON objects accessible as the '_json' member on the object returned by the tweepy API.  Maybe
+    you should store the JSON?
+  * What is a syntactically correct json file (see http://www.json.org)?
+  * Maybe you'll want a nice handler class for the data?
+  * How do you cancel this possibly long running process and still have the last chunk be syntactically valid?
+  
+Here is some helper code for serialization that relies on the `json` python module:
+
+    class TweetSerializer:
+       out = None
+       first = True
+       count = 0
+       def start(self):
+          count += 1
+          fname = "tweets-"+str(count)+".json"
+          self.out = open(fname,"w")
+          self.out.write("[\n")
+          self.first = True
+          
+       def end(self):
+          if self.out is not None:
+             self.out.write("\n]\n")
+             self.out.close()
+          self.out = None
+       
+       def write(self,tweet):
+          if not self.first:
+             self.out.write(",\n")
+          self.first = False
+          self.out.write(json.dumps(tweet._json).encode('utf8'))
+      
+### Activities: Interrupts and Resilience ###
+
+If you need to shutdown your data collection, you can define an interrupt handler:
+
+    def interrupt(signum, frame):
+       print "Interrupted, closing ..."
+       # magic goes here
+       exit(1)
+
+    signal.signal(signal.SIGINT, interrupt)
+
+Things to consider:
+
+  * What would you add to your chunking tweet acquisition code to handle interrupts?
+  * What kind of exceptions might be thrown?
+  * What kinds of errors might Tweepy or Twitter give you?
+  * How do you make your process resilient?
+
+  
+### Activities: Partitioning Data on Facets ###
+
+While it may be convenient for the programmer to write out a fixed number of tweets per file, it might be more
+useful to partition the tweets on facets based on your data collection.  For example, if you are collecting tweets over
+a specific period of time, treating the data as a time-series data set might make sense.  As such, the partition or API use
+would use time to limit the results stored in each file.
+
+Twitter has two useful [search query operators](https://dev.twitter.com/rest/public/search):
+
+  * until:{date} - limits the result to those up to a specific date
+  * since:{date} - limits the results to those after a specific date
+  
+These two operators can be used together to define a particular day.  For example: 
+
+    minecraft since:2015-01-10 until:2015-01-11
+    
+which you can view on the [twitter website](https://twitter.com/search?q=minecraft%20since%3A2015-01-10%20until%3A2015-01-11).
+
+Questions to consider:
+
+ * How would you change your search program to use facets of the tweets for partitioning to retrieve data for a specific time period (e.g. a week)?
+ * What duration of time would you use to store a "reasonable" number of tweets per chunked file?
+ * What other criteria would you use to chunk data beyond a day?
+ * How are the files named consistently to match the facet ranges?
+ * Are the facet ranges in the JSON in each output file?
+
