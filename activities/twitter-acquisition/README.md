@@ -44,9 +44,10 @@ At any point, you can revoke the access key or regenerated any of these values.
 To completely disable the application, you must delete the application.  This does is remove the consumer key, secret, and access tokens from
 Twitter's system and any program using them will immediately stop working.
  
-## Test your Application ##
+### Test your Application ###
  
 Use the `hello-twitter.py` program to test your application.  Change the code and insert your consumer key, consumer secret, access token, and 
 access token secret.  You should then be able to just run the program and get a few tweets:
 
     python hello-twitter.py 
+    
