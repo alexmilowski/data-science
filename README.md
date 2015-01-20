@@ -1,8 +1,4 @@
-This project contains a number of code samples or snippets for:
-
- * Amazon's Elastic Map Reduce / Hadoop
- * processing XML data
- * data acquisition processes
+This project contains activities and code samples for the process of acquiring and organizing information for data science.
 
 
 # How to Turn in Assignments #
