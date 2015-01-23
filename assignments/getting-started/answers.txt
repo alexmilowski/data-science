@@ -1,0 +1,13 @@
+3. 
+AWS
+real	12m30.879s
+user	0m1.454s
+sys	0m0.228s
+
+Local
+real	1m29.366s
+user	1m18.579s
+sys	0m9.170s
+
+4. 2042
+5. Yes
