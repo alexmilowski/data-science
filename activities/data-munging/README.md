@@ -124,7 +124,7 @@ We'll parse the the weather data as JSON and select only those that occur within
 #### Tasks ####
 
    1. Pick a particular hour.
-   2. Parse all the JSON files and select the temperature values that occur within the quadrangle [[-125, 40, -120, 35 ]] (upper left, lower right).
+   2. Parse all the JSON files and select the temperature values that occur within the quadrangle \[-125, 40, -120, 35 \] (upper left, lower right).
    3. Calculate the average temperature for that hour for that region.
 
 ### D. Parsing CSV: Grid Averages ###
@@ -132,7 +132,7 @@ We'll parse the the weather data as JSON and select only those that occur within
 #### Description ####
 
 Comma Separated Values (CSV) is a very common but non-standardized data format.  The CWOP data set has been transformed into a simple set of CSV data files.  You should attempt to partition the data 
-by quadrangles and produce a temperature summary for each quadrangle covering the continental USA (i.e., [-125, 45, -65, 25]).  A partitioning by 5° quadrangles will produce a 
+by quadrangles and produce a temperature summary for each quadrangle covering the continental USA (i.e., \[-125, 45, -65, 25\]).  A partitioning by 5° quadrangles will produce a 
 12 by 4 grid over the region.
 
 CSV data can be easily parsed in Python using the [csv module](https://docs.python.org/2/library/csv.html); see [csv-dump.py](csv-dump.py).
