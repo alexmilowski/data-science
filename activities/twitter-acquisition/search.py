@@ -3,28 +3,33 @@ import tweepy
 import datetime
 import urllib
 import signal
-import json
+import authtoken
+import serializer
 
-# Don't forget to install tweepy
-# pip install tweepy
+api = tweepy.API(auth_handler=authtoken.auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-consumer_key = ""
-consumer_secret = ""
+query_string = ""
 
-access_token = ""
-access_token_secret = ""
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-
-api = tweepy.API(auth_handler=auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
-
-q = urllib.quote_plus(sys.argv[1])  # URL encoded query
+if len(sys.argv) > 1:
+	query_string += sys.argv[1]
 
 # Additional query parameters:
 #   since: {date}
 #   until: {date}
 # Just add them to the 'q' variable: q+" since: 2014-01-01 until: 2014-01-02"
-for tweet in tweepy.Cursor(api.search,q=q).items(200):
-   # FYI: JSON is in tweet._json
-   print tweet._json
+
+if len(sys.argv) > 2:
+	query_string += " since:" + sys.argv[2]
+
+if len(sys.argv) > 3:
+	query_string += " until:" + sys.argv[3]
+
+print query_string
+
+tweet_serializer = serializer.TweetSerializer(2)
+
+for tweet in tweepy.Cursor(api.search,q=query_string).items(10):
+	# FYI: JSON is in tweet._json
+	tweet_serializer.write(tweet)
+
+tweet_serializer.close_file()
