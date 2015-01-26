@@ -135,6 +135,8 @@ Comma Separated Values (CSV) is a very common but non-standardized data format. 
 by quadrangles and produce a temperature summary for each quadrangle covering the continental USA (i.e., [-125, 45, -65, 25]).  A partitioning by 5° quadrangles will produce a 
 12 by 4 grid over the region.
 
+CSV data can be easily parsed in Python using the [csv module](https://docs.python.org/2/library/csv.html); see [csv-dump.py](csv-dump.py).
+
 #### Tasks ####
 
     1. Pick a particular hour.
