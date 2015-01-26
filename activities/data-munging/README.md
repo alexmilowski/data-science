@@ -124,7 +124,7 @@ We'll parse the the weather data as JSON and select only those that occur within
 #### Tasks ####
 
    1. Pick a particular hour.
-   2. Parse all the JSON files and select the temperature values that occur within the quadrangle [-125, 40, -120, 35 ] (upper left, lower right).
+   2. Parse all the JSON files and select the temperature values that occur within the quadrangle [[-125, 40, -120, 35 ]] (upper left, lower right).
    3. Calculate the average temperature for that hour for that region.
 
 ### D. Parsing CSV: Grid Averages ###
