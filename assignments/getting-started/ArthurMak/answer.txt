@@ -22,13 +22,11 @@ sys	0m0.237s
 
 4. How many address tags are there in the input?
 
-Local: 5140 tags
-(ran this command...  wc -l out-local/parts-merged)
+Local: 2042 tags
 
-AWS: 5140 tags
-(ran this command...  wc -l out-aws/parts-merged)
+AWS: 2042 tags
 
 
 5. Does the local version and EMR version give the same answer?
 
-They gave the same answer of 5140 tags.
+They gave the same answer of 2042 tags.
