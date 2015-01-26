@@ -1,0 +1,12 @@
+Nate Black
+Storing and Retrieving Data Assignment 1
+1/26/2015
+
+3. 
+-The tag_counter.py process took 2 minutes and 38 seconds locally and 13 minutes and 56 seconds on EMR.
+-The server_analysis.py process took 1 minute and 7 seconds locally and 11 minutes and 25 seconds on EMR.
+-The word_count.py process took 8 minutes and 7 seconds locally and 20 minutes and 48 seconds on EMR.
+
+4. There are 2042 address tags in the WARC files. (grep address {filename})
+
+5. The EMR and local versions have the same number of address tags.
