@@ -1,0 +1,50 @@
+creating new scratch bucket mrjob-5420bff9e54714ba
+using s3://mrjob-5420bff9e54714ba/tmp/ as our scratch dir on S3
+creating tmp directory /tmp/tag_counter.root.20150126.055531.326123
+writing wrapper script to /tmp/tag_counter.root.20150126.055531.326123/setup-wrapper.sh
+writing master bootstrap script to /tmp/tag_counter.root.20150126.055531.326123/b.py
+creating S3 bucket 'mrjob-5420bff9e54714ba' to use as scratch space
+Copying non-input files into s3://mrjob-5420bff9e54714ba/tmp/tag_counter.root.20150126.055531.326123/files/
+Waiting 5.0s for S3 eventual consistency
+Creating Elastic MapReduce job flow
+Job flow created with ID: j-2L0R23YYZCJVM
+Created new job flow j-2L0R23YYZCJVM
+Job launched 30.3s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 60.7s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 91.1s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 121.5s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 151.8s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 182.4s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 212.7s ago, status STARTING: Configuring cluster software
+Job launched 243.1s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 273.4s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 303.9s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 334.3s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 364.7s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 395.0s ago, status RUNNING: Running step
+Job launched 425.4s ago, status RUNNING: Running step
+Job launched 455.7s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 488.1s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 518.4s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 548.8s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 579.2s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 609.5s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 639.8s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 670.2s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job launched 700.5s ago, status RUNNING: Running step (tag_counter.root.20150126.055531.326123: Step 1 of 1)
+Job completed.
+Running time was 280.0s (not counting time spent waiting for the EC2 instances)
+ec2_key_pair_file not specified, going to S3
+Fetching counters from S3...
+Waiting 5.0s for S3 eventual consistency
+Counters from step 1:
+  (no counters found)
+removing tmp directory /tmp/tag_counter.root.20150126.055531.326123
+Removing all files in s3://mrjob-5420bff9e54714ba/tmp/tag_counter.root.20150126.055531.326123/
+Removing all files in s3://mrjob-5420bff9e54714ba/tmp/logs/j-2L0R23YYZCJVM/
+Terminating job flow: j-2L0R23YYZCJVM
+
+real	12m38.939s
+user	0m1.012s
+sys	0m0.495s
+
