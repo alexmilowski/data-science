@@ -1,0 +1,17 @@
+3. 
+Details about the job on AWS:
+
+real	12m21.068s
+user	0m0.939s
+sys	0m0.132s
+
+Details about the local job:
+
+real	2m6.905s
+user	2m3.151s
+sys	0m4.067s
+
+4. Number of address tags = 2042
+
+5. Yes, they give the same answer for the above question.
+
