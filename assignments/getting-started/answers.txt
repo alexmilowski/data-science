@@ -1,0 +1,31 @@
+W205 Assignment 1
+Tom Kunicki
+
+
+3) How long did it take to run the process for each of these?
+
+The local execution completed in 2m23.920s as indicated by the output of time:
+
+real	2m23.920s
+user	2m23.910s
+sys	0m4.349s
+
+The emr excution completed in 13m2.338s as indicated by the output of time:
+
+real	13m2.338s
+user	0m1.555s
+sys	0m0.193s
+
+
+4) How many address tags are there in the input?
+
+The output of local and emr executions report 2042 "address" tags.
+
+
+5) Does the local version and EMR version give the same answer?
+
+The number of tags and their respective counts is consistent between the
+output of both the the local and emr executions.  Differences exist between
+the number of output files and the entries contained in each file.  When the
+output files for each execution are concatenated and sorted there is no
+difference in the resulting content.
