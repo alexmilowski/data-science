@@ -16,7 +16,7 @@ We can easily interact with a resource via the [urllib2 python module](https://d
 The response object is a file-like object.  You can get access to the message returned via the info() method that returns an [HTTPMessage instance from httplib](https://docs.python.org/2/library/httplib.html).
 
 
-## Parsing HTML ## 
+## Parsing HTML ##
 
 We'll use the [beautifulsoup library](http://www.crummy.com/software/BeautifulSoup/) to parse HTML responses.
 
