@@ -6,7 +6,7 @@ resource by parsing the data received.  The most common data format is HTML but 
 We interact with the Web by HTTP requests and responses.  A request sends a method (a verb like "GET") to a server and a resource path.  The server then responds
 with a status code, various metadata, and possibly an entity body.  That entity body contains the data for the resource (e.g., the HTML).
 
-We can easily interact with a resource via the [urllib2 python modile](https://docs.python.org/2/howto/urllib2.html).
+We can easily interact with a resource via the [urllib2 python module](https://docs.python.org/2/howto/urllib2.html).
 
     import urllib2
     response = urllib2.urlopen("http://www.ischool.berkeley.edu/")
@@ -39,6 +39,6 @@ The `html` object is an interface to the post-parsed tree produced from the HTML
 
    1. Pick a Web page of your choice.
    2. Parse the Web page using BeautifulSoup
-   3. Extract all the links (The @href attribute on `a` elements) from the document.
+   3. Extract all the links (a `@href` attribute on `a` elements) from the document.
    
    
