@@ -1,0 +1,24 @@
+Andrea Soto
+
+Storing and Retrieving Data
+Assignment #1 - Getting Started
+
+3. How long did it take to run the process for each of these?
+
+Local:
+ real 1m27.174s
+ user 1m30.696s
+ sys  0m2.312s
+
+AWS:
+ real 12m27,655s
+ user 0m0.936s
+ sys  0m0.036s
+
+4. How many address tags are there in the input?
+
+The count of 'address' tags is 2042
+
+5. Does the local version and EMR version give the same answer?
+
+Yes
