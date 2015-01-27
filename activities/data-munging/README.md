@@ -2,7 +2,7 @@
 
 ## CWOP Data Set ##
 
-The Citizen Weather Observation Program (CWOP) collects weather data from a variety of citzen, business, and government 
+The Citizen Weather Observation Program (CWOP) collects weather data from a variety of citizen, business, and government 
 sources over the Internet.  It collects over 75,000 weather reports an hour from 10,000+ weather stations located all over
 the world but mostly concentrated in North America.
 
@@ -75,7 +75,7 @@ In general, we'll be computing two things:
 #### Description ####
 
 The data is available on S3 and you can download a copy (or a subset) easily via the AWS CLI.  Keep in mind that S3 is a key/value store.  All the data is associated with 
-the full path of the key.  The concept of a "directory" and contained "files" is only implied by the "/" in the key and so is an interprtation of the tool being used.
+the full path of the key.  The concept of a "directory" and contained "files" is only implied by the "/" in the key and so is an interpretation of the tool being used.
 
 Fortunately, the AWS CLI interprets directories in keys as you might expect.  Try the following:
 
@@ -104,7 +104,7 @@ If there were "subdirectories", you'd need to add the '--recursive' option.
 #### Description ####
 
 In this activity you'll be parsing XML data sources and computing an average temperature.  You will want to iterate a set of XML documents in a directory, parsing each XML source,
-and interpret the @temperature attribute as a real number measuring temperature in Farenheit.  You should compute an average over all weather reports in all the documents you process.
+and interpret the @temperature attribute as a real number measuring temperature in Fahrenheit.  You should compute an average over all weather reports in all the documents you process.
 
 You can parse XML using Python's built in [xml.etree module](https://docs.python.org/2/library/xml.etree.elementtree.html); see [xml-parse.py](xml-parse.py).
 
@@ -116,10 +116,10 @@ You can parse XML using Python's built in [xml.etree module](https://docs.python
 
 ### C. Parsing JSON: Geospatial Partitioning ###
 
-#### Descriptin ####
+#### Description ####
 
 The CWOP XML data has been translated into [geojson](http://geojson.org).  The data is received in whatever order the weather stations report them but it can be filter for a specific region.
-We'll parse the the weather data as JSON and select only those that occur within a specific quadrangle.
+We'll parse the weather data as JSON and select only those that occur within a specific quadrangle.
 
 #### Tasks ####
 
@@ -148,7 +148,7 @@ CSV data can be easily parsed in Python using the [csv module](https://docs.pyth
 
 #### Description ####
 
-You can access S3 programmatically via the [boto module](http://boto.readthedocs.org/en/latest/s3_tut.html).  There are samples for outputing a key value ([s3cat.py](s3cat.py)), 
+You can access S3 in python via the [boto module](http://boto.readthedocs.org/en/latest/s3_tut.html).  There are samples for outputting a key value ([s3cat.py](s3cat.py)), 
 copying a file into s3 ([s3copy.py](s3copy.py)]), and list the keys in a bucket ([s3list.py](s3list.py)).
 
 You can repeat any of the activities above by accessing the data directly.
