@@ -146,5 +146,22 @@ CSV data can be easily parsed in Python using the [csv module](https://docs.pyth
 
 ### E. Direct Access to S3 via boto ###
 
+#### Description ####
+
+You can access S3 programmatically via the [boto module](http://boto.readthedocs.org/en/latest/s3_tut.html).  There are samples for outputing a key value ([s3cat.py](s3cat.py)), 
+copying a file into s3 ([s3copy.py](s3copy.py)]), and list the keys in a bucket ([s3list.py](s3list.py)).
+
+You can repeat any of the activities above by accessing the data directly.
+
+The documentation is [available online](http://boto.readthedocs.org/en/latest/ref/s3.html).
+
+#### Activity ####
+
+    1. Pick a previous activity for which you have working code.
+    2. Modify the activity to read the list of files out of the bucket.
+    3. Process the data directly by either temporarily storing the files locally or loading the contents into strings.
+    
+Note: You can list a subset of keys in a bucket by using the `prefix` parameter.  See [s3list.py](s3list.py) for an example.
+
   
   
