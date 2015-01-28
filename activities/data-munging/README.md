@@ -89,10 +89,8 @@ You can copy a single file or directory to your local drive via the same base co
     
 If you want to copy a whole directory, try:
 
-    aws s3 cp s3://milowski-cwop-data/2014-12-26/json/13:00 .
-    
-If there were "subdirectories", you'd need to add the '--recursive' option.
-    
+    aws s3 cp s3://milowski-cwop-data/2014-12-26/json/13:00 . --recursive
+        
 #### Tasks ####
 
   1. Pick an particular hour (e.g., 13:00)
