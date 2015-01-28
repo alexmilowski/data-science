@@ -151,11 +151,16 @@ CSV data can be easily parsed in Python using the [csv module](https://docs.pyth
 You can access S3 in python via the [boto module](http://boto.readthedocs.org/en/latest/s3_tut.html).  There are samples for outputting a key value ([s3cat.py](s3cat.py)), 
 copying a file into s3 ([s3copy.py](s3copy.py)]), and list the keys in a bucket ([s3list.py](s3list.py)).
 
-You can repeat any of the activities above by accessing the data directly.
+You need to set environment variables for the code to work as it needs your AWS key and secret:
+
+    export AWS_ACCESS_KEY_ID=...
+    export AWS_SECRET_ACCESS_KEY=...
 
 The documentation is [available online](http://boto.readthedocs.org/en/latest/ref/s3.html).
 
 #### Activity ####
+
+You can repeat any of the activities above by accessing the data directly.
 
     1. Pick a previous activity for which you have working code.
     2. Modify the activity to read the list of files out of the bucket.
