@@ -1,0 +1,46 @@
+1. A copy of the output directory for the tag counter running locally (name the directory 'out').
+
+This is provided. I experimented with some values in the mrjob.conf, so this reflects setting num_ec2_instances: 2
+
+----------------------------------------------------------------
+
+2. A copy of the output from S3 for the tag counter running on AWS (name the directory 'emr-out').
+
+This is provided. I experimented with some values in the mrjob.conf, so this reflects setting num_ec2_instances: 3
+
+----------------------------------------------------------------
+
+3. How long did it take to run the process for each of these?
+
+It took 4 minutes in each case, though there was about 8 minutes of setup time involved with the EMR instance (see emr-out/command_output.png for actual time in the EMR instance).
+
+out/times:
+
+real	3m52.377s
+user	1m27.019s
+sys	0m15.313s
+
+emr-out/times:
+
+real	12m38.939s
+user	0m1.012s
+sys	0m0.495s
+
+----------------------------------------------------------------
+
+4. How many address tags are there in the input?
+
+There are 2042 "address" tags in the input.
+
+# grep "\"address\"" *
+part-00000:"address"	2042
+
+----------------------------------------------------------------
+
+5. Does the local version and EMR version give the same answer?
+
+Yes, both yield 2042.
+
+# grep -R "\"address\"" *
+out/part-00000:"address"	2042
+emr-out/part-00000:"address"	2042

@@ -1,0 +1,30 @@
+No configs specified for local runner
+reading from STDIN
+creating tmp directory /tmp/tag_counter.root.20150126.052654.338444
+writing to /tmp/tag_counter.root.20150126.052654.338444/step-0-mapper_part-00000
+> /usr/bin/python tag_counter.py --step-num=0 --mapper /tmp/tag_counter.root.20150126.052654.338444/input_part-00000 | sort | /usr/bin/python tag_counter.py --step-num=0 --combiner > /tmp/tag_counter.root.20150126.052654.338444/step-0-mapper_part-00000
+Counters from step 1:
+  Undecodable input:
+    ValueError: 1
+  commoncrawl:
+    processed_pages: 42040
+    processed_records: 129958
+writing to /tmp/tag_counter.root.20150126.052654.338444/step-0-mapper-sorted
+> sort /tmp/tag_counter.root.20150126.052654.338444/step-0-mapper_part-00000
+writing to /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00000
+> /usr/bin/python tag_counter.py --step-num=0 --reducer /tmp/tag_counter.root.20150126.052654.338444/input_part-00000 > /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00000
+writing to /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00001
+> /usr/bin/python tag_counter.py --step-num=0 --reducer /tmp/tag_counter.root.20150126.052654.338444/input_part-00001 > /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00001
+Counters from step 1:
+  Undecodable input:
+    ValueError: 1
+  commoncrawl:
+    processed_pages: 42040
+    processed_records: 129958
+Moving /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00000 -> out/part-00000
+Moving /tmp/tag_counter.root.20150126.052654.338444/step-0-reducer_part-00001 -> out/part-00001
+removing tmp directory /tmp/tag_counter.root.20150126.052654.338444
+
+real	3m52.377s
+user	1m27.019s
+sys	0m15.313s
