@@ -1,0 +1,53 @@
+Johns-MacBook-Pro-2:cc-mrjob jbocharov$ time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{your-bucket-name}/cc-test-1 --source s3 input/test-1.warc/cc-test-1 --source s3 input/test-1.warc
+Johns-MacBook-Pro-2:cc-mrjob jbocharov$ time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://{your-bucket-name}/cc-test-1 --source s3 input/test-1.warc
+Johns-MacBook-Pro-2:cc-mrjob jbocharov$ ads s3 mb s3://jabmids-w205-assignment1answer
+make_bucket: s3://jabmids-w205-assignment1answer/
+Johns-MacBook-Pro-2:cc-mrjob jbocharov$ time python tag_counter.py -r emr --conf-path mrjob.conf --python-archive mrcc.py.tar.gz --no-output --output-dir s3://jabmids-w205-assignment1answer/cc-test-1 --source s3 input/test-1.warc
+creating new scratch bucket mrjob-332b961130f5b50a
+using s3://mrjob-332b961130f5b50a/tmp/ as our scratch dir on S3
+creating tmp directory /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.025523.008143
+writing wrapper script to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.025523.008143/setup-wrapper.sh
+writing master bootstrap script to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.025523.008143/b.py
+creating S3 bucket 'mrjob-332b961130f5b50a' to use as scratch space
+Copying non-input files into s3://mrjob-332b961130f5b50a/tmp/tag_counter.jbocharov.20150130.025523.008143/files/
+Waiting 5.0s for S3 eventual consistency
+Creating Elastic MapReduce job flow
+Job flow created with ID: j-1J6QN7GZ4OMIP
+Created new job flow j-1J6QN7GZ4OMIP
+Job launched 30.6s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 61.3s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 91.9s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 122.5s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 153.2s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 183.8s ago, status STARTING: Configuring cluster software
+Job launched 214.4s ago, status STARTING: Configuring cluster software
+Job launched 245.1s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 275.8s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 306.4s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 337.1s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 367.7s ago, status RUNNING: Running step
+Job launched 398.3s ago, status RUNNING: Running step
+Job launched 429.0s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 459.6s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 490.2s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 520.9s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 551.5s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 582.2s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 612.8s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 643.4s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job launched 674.0s ago, status RUNNING: Running step (tag_counter.jbocharov.20150130.025523.008143: Step 1 of 1)
+Job completed.
+Running time was 252.0s (not counting time spent waiting for the EC2 instances)
+ec2_key_pair_file not specified, going to S3
+Fetching counters from S3...
+Waiting 5.0s for S3 eventual consistency
+Counters from step 1:
+  (no counters found)
+removing tmp directory /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.025523.008143
+Removing all files in s3://mrjob-332b961130f5b50a/tmp/tag_counter.jbocharov.20150130.025523.008143/
+Removing all files in s3://mrjob-332b961130f5b50a/tmp/logs/j-1J6QN7GZ4OMIP/
+Terminating job flow: j-1J6QN7GZ4OMIP
+
+real	13m4.197s
+user	0m1.650s
+sys	0m0.232s

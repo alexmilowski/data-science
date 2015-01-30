@@ -1,0 +1,16 @@
+3) The local version took 3:08 of wall-clock time. EMR took 13:04 of wall-clock time.
+4) 2042
+5) The outputs are identical except for part file boundaries
+
+Johns-MacBook-Pro-2:getting-started jbocharov$ grep --extended-regexp '^real' stdout-local.txt 
+real	3m8.695s
+Johns-MacBook-Pro-2:getting-started jbocharov$ grep --extended-regexp '^real' stdout-emr.txt 
+real	13m4.197s
+Johns-MacBook-Pro-2:getting-started jbocharov$ cat out/* | sort | grep '"address"'
+"address"	2042
+Johns-MacBook-Pro-2:getting-started jbocharov$ cat emr-out/* | sort | grep '"address"'
+"address"	2042
+Johns-MacBook-Pro-2:getting-started jbocharov$ cat out/* | sort > local-output.txt
+Johns-MacBook-Pro-2:getting-started jbocharov$ cat emr-out/* | sort > emr-output.txt
+Johns-MacBook-Pro-2:getting-started jbocharov$ diff --report-identical-files local-output.txt emr-output.txt
+Files local-output.txt and emr-output.txt are identical
