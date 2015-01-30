@@ -1,0 +1,31 @@
+Johns-MacBook-Pro-2:cc-mrjob jbocharov$ time python absolutize_path.py < input/test-1.warc | python tag_counter.py -r local --conf-path mrjob.conf --no-output --output-dir out
+No configs specified for local runner
+reading from STDIN
+creating tmp directory /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875
+writing to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-mapper_part-00000
+> /usr/local/opt/python/bin/python2.7 tag_counter.py --step-num=0 --mapper /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/input_part-00000 | sort | /usr/local/opt/python/bin/python2.7 tag_counter.py --step-num=0 --combiner > /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-mapper_part-00000
+Counters from step 1:
+  Undecodable input:
+    ValueError: 1
+  commoncrawl:
+    processed_pages: 42040
+    processed_records: 129958
+writing to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-mapper-sorted
+> sort /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-mapper_part-00000
+writing to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00000
+> /usr/local/opt/python/bin/python2.7 tag_counter.py --step-num=0 --reducer /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/input_part-00000 > /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00000
+writing to /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00001
+> /usr/local/opt/python/bin/python2.7 tag_counter.py --step-num=0 --reducer /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/input_part-00001 > /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00001
+Counters from step 1:
+  Undecodable input:
+    ValueError: 1
+  commoncrawl:
+    processed_pages: 42040
+    processed_records: 129958
+Moving /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00000 -> out/part-00000
+Moving /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875/step-0-reducer_part-00001 -> out/part-00001
+removing tmp directory /var/folders/bv/dkyx0mz16cl8lsd0smgf1p280000gn/T/tag_counter.jbocharov.20150130.164154.812875
+
+real	3m8.695s
+user	2m37.625s
+sys	0m9.520s
