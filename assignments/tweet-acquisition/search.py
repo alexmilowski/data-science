@@ -11,8 +11,8 @@ from boto.s3.key import Key
 
 
 
-aws_access_key_id ='AKIAIW66YJD5QMLM6NAQ'
-aws_secret_access_key= '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'
+aws_access_key_id =''
+aws_secret_access_key= ''
 aws_bucket_name='moonlightbucket'
 
 
@@ -20,11 +20,11 @@ aws_bucket_name='moonlightbucket'
 # Don't forget to install tweepy
 # pip install tweepy
 
-consumer_key = "10G4NlBUpM9nusmE9nSoeGQnk"
-consumer_secret = "KcH2Ykf253L0tTCuzIyqDUPnkEZ7mZhIiHCYiS84LbZNCsQwRu"
+consumer_key = ""
+consumer_secret = ""
 
-access_token = "2988143343-waN3T7DFy7j0Yn95hDdXOMLpdRfHzG66SnOZlHO"
-access_token_secret = "TDd8WId2f7Cw8jDLdPcjJRM5lTlMGYiuLjUl1ped21euS"
+access_token = ""
+access_token_secret = ""
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
