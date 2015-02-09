@@ -30,5 +30,24 @@ Acquire relevant data around the Microsoft / Mojang for a recent week.  To accom
 
 3. The histogram.
 
+Assignment Results
+------------------
+### Acquired Tweets ###
+  List of tweets available at:  `s3://kunicki-w205-assignment2/tweet_#microsoft+#mojang+OR+#minecraft.txt`
+  
+  *Note: ran search on `"#microsoft #mojang OR #minecraft"`, `"#microsoft #mojang"` had too few fits (~60)*
+ 
+### Histogram ###
 
+Produced by:
+  * removing `@` mentions `#` hastags and `https?://` URI
+  * converting the remaining strings to lower case
+  * trimming off leading and trailing puncuation
+  * generating a [bar plot with log scaling](tweet_%23microsoft%2B%23mojang%2BOR%2B%23minecraft.hist.txt)
+  
+### Word Cloud ###
+
+  Because...  why not?
+
+![Word Cloud](tweet_%23microsoft%2B%23mojang%2BOR%2B%23minecraft.png)
   
