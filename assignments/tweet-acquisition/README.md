@@ -25,10 +25,10 @@ Acquire relevant data around the Microsoft / Mojang for a recent week.  To accom
 ## What to Turn In ##
  
 1. A link to your S3 bucket documented in your README.md file.  Make sure to make it publicly accessible.
-
+  https://s3.amazonaws.com/chris.dailey.twitter.data
 2. Your twitter acquisition code.
-
+  See twitter-unified.py
 3. The histogram.
-
+  See histogram.png
 
   
