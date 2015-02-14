@@ -1,34 +1,22 @@
-# Acquiring and Storing Social Media Data #
+Bucket Location:
+https://moonlightbucket.s3.amazonaws.com/
+How to retrieve tweets with the keywords and store on S3
+1.	Command format: python “startdate” “enddate”
+2.	In the beginning, I had one script to get tweets for the entire week. However, my Linux VM had numerous issues, including 1)KILLED message showing up 2)running out of disc space. Thus, I turned “start” and “end” date into command line arguments so I can query a day’s worth of tweets each time. This way, if retrieval failed, I only have to rerun the retrieval for the specified day. The downside of this is that I had to run the command manually 7 times:
+ python “2015-02-07” “2015-02-08”
+python “2015-02-08” “2015-02-09”
+python “2015-02-09” “2015-02-10”
+python “2015-02-10” “2015-02-11”
+python “2015-02-11” “2015-02-12”
+python “2015-02-12” “2015-02-13”
+python “2015-02-13” “2015-02-14”
 
-## A Hypothetical Scenario ##
-
-Minecraft is a popular game throughout the world that was 
-[acquired last year (2014) by Microsoft](https://mojang.com/2014/09/yes-were-being-bought-by-microsoft/).  We'd like to 
-assess the current sentiment of the acquisition by examining social media data.  Twitter is an obvious and easy choice 
-as a place to start.
+How to analyze tweets on S3 and create histogram. 
+1.	Run “python analyze.py”
+2.	First I tried to create histogram from entire data. However, my VM kept giving me a “KILLED” error(http://stackoverflow.com/questions/19189522/what-does-killed-mean-in-python).
+Therefore, I decided to make a histogram only for words with more 1000 counts. Please see “histogramForOver1000Counts.png”.
 
 
-## Acquisition Task ##
-
-Acquire relevant data around the Microsoft / Mojang for a recent week.  To accomplish this, do the following:
-
- 1. Write an acquisition program that can acquire tweets for a specific date on the using the Tweepy python package.  The program should pull tweets
-    for the #microsoft and #mojang hash tags simultaneously.
-    
- 2. Run your data analysis over a week period of time.  You should chunk your data as appropriate and give yourself the ability to re-run the process reliable in case of failures.
- 
- 3. Organize the resulting raw data into a set of tweets and store these tweets into S3.
- 
- 4. Analyze the tweets by producing a histogram (a graph) of the words.
-
- 
-## What to Turn In ##
- 
-1. A link to your S3 bucket documented in your README.md file.  Make sure to make it publicly accessible.
-
-2. Your twitter acquisition code.
-
-3. The histogram.
 
 
   

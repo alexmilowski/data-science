@@ -13,14 +13,16 @@ class TweetSerializer:
    fileCount = 0
    bucket = None
    fileName = None
+   fileDate = ""
 
-   def __init__(self, maxCount=10,bucket=None):
+   def __init__(self, maxCount=10,bucket=None,fileDate = ""):
       self.maxCount = maxCount
       self.bucket = bucket
+      self.fileDate = fileDate
 
    def start(self):
       self.fileCount += 1
-      self.fileName = "tweets-"+str(self.fileCount)+".json"
+      self.fileName = "tweets-"+self.fileDate+ "-" +str(self.fileCount)+".json"
       fname= "tweets/"+ self.fileName
       self.out = open(fname,"w+")
       self.out.write("[\n")
