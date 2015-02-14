@@ -1,0 +1,4 @@
+python tweet-acquisition.py -hash microsoft -hash mojang -or -start 2015-02-07 -until 2015-02-14
+python word_count.py microsoft_OR_mojang_2015-02-07_2015-02-14_tweets_0.txt
+python histogram_tweets.py
+python histogram_100_occurrences.py
