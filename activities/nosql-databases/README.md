@@ -30,6 +30,8 @@ You should familarize yourself with the basics of starting and stopping the Mong
 3. Register as a developer (or login).
 4. Follow the [installation guide](http://docs.marklogic.com/guide/installation) for your platform.
 
+You should familarize yourself with the basics of starting and stopping the MarkLogic server.
+
 ## Node ##
 
 While there is a REST API and various programming languages (Python) can be used to interface these databases,
