@@ -60,4 +60,34 @@ You should have:
   3. Setup Node.js
   3. Have familiarized yourself with JavaScript and Node. 
 
+# 2. Mongo #
+
+MongoDB is a JSON database that stores JSON "documents" in collections.  The main data unit is a JSON object (i.e. a "document") which are organized by named collections.
+
+# 2.1 Setup a Database #
+
+If you haven't started MongoDB yet, there are two scripts to help you:
+
+ * `setup.sh` — creates the basic directory structure
+ * `forkdb.sh` - forks mongodb as a daemon and puts the process ID into a file (`mongo.pid`).
+
+To get setup: 
+ 
+ 1. Create a directory for your test configuration.
+ 2. Copy the `mongo.conf` file into that directory.
+ 3. Run `setup.sh` in that directory.
+ 4. Run `forkdb.sh` to start MongoDB.
+ 
+ For example (assuming this directory):
+ 
+     mkdir test
+     cp mongo.conf test
+     cd test
+     ../setup.sh
+     ../forkdb.sh
+     
+You should be able to confirm MongoDB is running by examining the `mongo.pid` file and looking for the process with the same identifier.
+
+# 2.2 The Basics #
+
 
