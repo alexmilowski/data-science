@@ -9,13 +9,13 @@ with loose relations, semi-structure data formats such as XML or JSON, semantic 
 
 In this activity, we'll be looking at two popular document storage NoSQL databases: [MongoDB](https://www.mongodb.org) and [MarkLogic](http://www.marklogic.com)
 
-# Setup #
+# 1. Setup #
 
 You need to download and install MongoDB and MarkLogic in your development environment.  You can run both of these databases locally without too
 much worry for this activity.  We won't be using that much data where you'll need a lot of disk space or memory.  Do keep in mind you are running
 a database in addition to your other tools and they all consume memory—especially a database.
 
-## MongoDB ##
+## 1.1 MongoDB ##
 
 1. Visit the [downloads page](http://www.mongodb.org/downloads) for MongoDB 2.6.7.
 2. Choose the download for your platform (~100+ MB)
@@ -23,7 +23,7 @@ a database in addition to your other tools and they all consume memory—especia
 
 You should familarize yourself with the basics of starting and stopping the MongoDB server.
 
-## MarkLogic ##
+## 1.2 MarkLogic ##
 
 1. Visit the [downloads page](http://developer.marklogic.com/products) for MarkLogic 8.0-1.1
 2. Choose the download for your platform (~150 MB)
@@ -32,7 +32,7 @@ You should familarize yourself with the basics of starting and stopping the Mong
 
 You should familarize yourself with the basics of starting and stopping the MarkLogic server.
 
-## Node ##
+## 1.3 Node ##
 
 While there is a REST API and various programming languages (Python) can be used to interface these databases,
 we'll be using Node.js for these activities.  
@@ -47,5 +47,17 @@ Then you should install the node modules for both databases:
     npm install marklogic
 
 Note: Some users may need to use `sudo` in front of the above commands depending on how they installed node.
+
+If you are not familar with JavaScript, work through as much as you can via the [node.js JavaScript tutorial](https://github.com/sethvincent/javascripting).  JavaScript
+is a fairly easy language to learn if you already know Python.
+
+## 1.4 Summary ##
+
+You should have:
+
+  1. Setup MongoDB and understand how to stop and start it.
+  2. Setup MarkLogic and understand how to stop and start it.
+  3. Setup Node.js
+  3. Have familarized yourself with JavaScript and Node. 
 
 
