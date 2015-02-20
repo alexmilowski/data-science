@@ -68,13 +68,13 @@ MongoDB is a JSON database that stores JSON "documents" in collections.  The mai
 
 If you haven't started MongoDB yet, there are two scripts to help you:
 
- * `setup.sh` — creates the basic directory structure
- * `forkdb.sh` - forks mongodb as a daemon and puts the process ID into a file (`mongo.pid`).
+ * `[setup.sh](mongo/setup.sh)` — creates the basic directory structure
+ * `[forkdb.sh](mongo/forkdb.sh)` - forks mongodb as a daemon and puts the process ID into a file (`mongo.pid`).
 
 To get setup: 
  
  1. Create a directory for your test configuration.
- 2. Copy the `mongo.conf` file into that directory.
+ 2. Copy the `[mongo.conf](mongo/mongo.conf)` file into that directory.
  3. Run `setup.sh` in that directory.
  4. Run `forkdb.sh` to start MongoDB.
  
