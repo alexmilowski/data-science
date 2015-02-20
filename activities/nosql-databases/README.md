@@ -210,9 +210,16 @@ We want to produce the following results by query and/or processing the data tha
 
 Note that, part of deleting tweets for a particular user requires that you can query and identify them as such.
 
+You can easily load the JSON data from disk via:
+
+    var json = JSON.parse(fs.readFileSync('prague-2015-02-14.json','utf-8'));
+    
+One you've complete the activity for both databases, attempt to answer the following questions.
+
 Discussion questions:
 
   1. Even though the amount of data is small, what kinds of indices would be helpful to define?
   2. How does the query language affect the amount programming necessary in Node?
   3. At what point did your code revert to linear search or other such non-scalable algorithms?
+  
   
