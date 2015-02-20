@@ -21,7 +21,7 @@ a database in addition to your other tools and they all consume memory—especia
 2. Choose the download for your platform (~100+ MB)
 3. Follow the [install instructions](http://docs.mongodb.org/master/release-notes/2.6/) for your platform.
 
-You should familarize yourself with the basics of starting and stopping the MongoDB server.
+You should familiarize yourself with the basics of starting and stopping the MongoDB server.
 
 ## 1.2 MarkLogic ##
 
@@ -30,7 +30,7 @@ You should familarize yourself with the basics of starting and stopping the Mong
 3. Register as a developer (or login).
 4. Follow the [installation guide](http://docs.marklogic.com/guide/installation) for your platform.
 
-You should familarize yourself with the basics of starting and stopping the MarkLogic server.
+You should familiarize yourself with the basics of starting and stopping the MarkLogic server.
 
 ## 1.3 Node ##
 
@@ -48,7 +48,7 @@ Then you should install the node modules for both databases:
 
 Note: Some users may need to use `sudo` in front of the above commands depending on how they installed node.
 
-If you are not familar with JavaScript, work through as much as you can via the [node.js JavaScript tutorial](https://github.com/sethvincent/javascripting).  JavaScript
+If you are not familiar with JavaScript, work through as much as you can via the [node.js JavaScript tutorial](https://github.com/sethvincent/javascripting).  JavaScript
 is a fairly easy language to learn if you already know Python.
 
 ## 1.4 Summary ##
@@ -58,6 +58,6 @@ You should have:
   1. Setup MongoDB and understand how to stop and start it.
   2. Setup MarkLogic and understand how to stop and start it.
   3. Setup Node.js
-  3. Have familarized yourself with JavaScript and Node. 
+  3. Have familiarized yourself with JavaScript and Node. 
 
 
