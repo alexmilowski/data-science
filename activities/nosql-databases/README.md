@@ -64,7 +64,7 @@ You should have:
 
 MongoDB is a JSON database that stores JSON "documents" in collections.  The main data unit is a JSON object (i.e. a "document") which are organized by named collections.
 
-# 2.1 Setup a Database, Starting and Stopping #
+# 2.1 Setup a Database, Starting, and Stopping #
 
 If you haven't started MongoDB yet, there are two scripts to help you:
 
@@ -188,6 +188,64 @@ The `find()` method returns a [Cursor instance](http://mongodb.github.io/node-mo
 manipulate in various ways.  The argument is a "query".  In this case, it specifies a field value that must match exactly.
 
 # 3. MarkLogic #
+
+## 3.1 Creating a Database ##
+
+You'll see that there are many options and features for databases.  You can safely ignore many of these features at this point but you do have
+to understand a bit about the MarkLogic architure.
+
+Databases use a collection of forests to store their actual data.  Forests are essentially disk-based storage.  A forest is made up of a set of stands 
+that are managed automatically by the database.  As information in your database changes, the stands are replicated by a merge process.  This allows the
+database to be both fast and consistent whilst achieving the ability to support ACID transactions.
+
+To create a database, you need to:
+
+   * create a database
+   * create and assign forests to the database for storage
+   
+The general rule of thumb is three forests per database.
+
+Once you started the MarkLogic server you'll want to create a database for this activity:
+
+  1. Visit http://localhost:8001 in your browser.
+  2. Click on "Databases" in the tree navigation on the left.
+  3. Click on the "Create" tab.
+  4. Type in 'tweets' in the "database name" field.
+  5. Scroll through the options and turn on "word searches" and "collection lexicon".
+  6. Click on "OK" to create the database.
+  
+You now need to create forests for the database:
+
+  1. If you do not have the database selected in the tree navigation on the left, select the "tweets" database we just created.
+  2. Select "Forests" from the navigation.
+  3. Click on "Create a Forest".
+  4. Type in "tweets-1" in the "forest name" field and leave all the other fields alone.
+  5. Click on the "More Forests" button below to show another creation form.
+  6. Type in "tweets-2" in the "forest name" field and leave all the other fields alone.
+  7. Click on the "More Forests" button again to show another creation form.
+  8. Type in "tweets-3" in the "forest name" field and leave all the other fields alone.
+  9. Click on the "OK" button to create the three forests.
+  10. Select all the forests in the "Configure Forests in a Database" view.
+  11. Click on "OK" to attach the three newly created forests to the database.
+  
+## 3.2 Configuring connections ##
+
+MarkLogic does not have one single default protocol for communication.  Instead, it supports a variety of connection methods of REST (HTTP), WebDAV, XDBC, and ODBC.  
+For this activity, you need to configure a REST connection to your database so that Node can communicate with the MarkLogic server.
+
+You can add a REST connection point by:
+
+  1. Navigation to "Configure -> Groups -> Default -> App Servers" in the left tree navigation.
+  2. Click on the "Create HTTP" tab.
+  3. Enter "Tweets" into "server name".
+  4. Enter "Tweets/" into "root".
+  5. Enter "8888" into "port".
+  6. Select "tweets" from the drop-down list box for "database".
+  7. Leave the rest unchanged and click on "OK".
+
+## 3.3 Connecting to a database ##
+
+
 
 # 4. Activity #
 
