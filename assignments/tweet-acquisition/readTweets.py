@@ -15,7 +15,7 @@ startdate = datetime.datetime.strptime(sys.argv[2],'%Y-%m-%d')
 enddate = datetime.datetime.strptime(sys.argv[3],'%Y-%m-%d')
 tweetDays = (enddate - startdate).days + 1
 debugmode = int(sys.argv[4])
-print "retrieving tweets for " + searchterms + " between " + str(startdate.date()) + " and " + str(enddate.date()) + ", " + str(tweetDays) + " days"
+print "Retrieving tweets for " + str(sys.argv[1]) + " between " + str(startdate.date()) + " and " + str(enddate.date()) + ", " + str(tweetDays) + " days"
 
 #read credentials file and get Twitter and AWS credentials
 credentials = ConfigParser.ConfigParser()
@@ -43,42 +43,33 @@ wordFilePrefix = 'wordFile.part.'
 api = tweepy.API(auth)
 #if the API rate limit is hit, pause until more requests can be processed
 api.wait_on_rate_limit = True
-
+totalTweets = 0
 try:
     for i in range (0,tweetDays):
         tweetCount = 0
         wordCount = 0
-#         tweetFilename = tweetFilePath+tweetFilePrefix+str(i);
-#         wordFilename = wordFilePath+wordFilePrefix+str(i);
-#         tweetFile = open(tweetFilename,"w")
-#         wordFile = open(wordFilename,"w")
+        tweetFilename = tweetFilePath+tweetFilePrefix+str(i);
+        tweetFile = open(tweetFilename,"w")
         enddate = startdate+datetime.timedelta(days=1)
-#         wordFile.write(str(startdate.date())+"\n")
         s3file = boto.s3.key.Key(s3bucket)
         s3file.key = tweetFilePrefix + str(i)
         for tweet in tweepy.Cursor(api.search, q=searchterms, since=str(startdate.date()), until=str(enddate.date()), include_entities=True).items():
             #add tweets to file for that day
             if tweet is not None: 
-                #tweetFile.write(json.dumps(tweet._json).encode("utf-8")+"\n")
-#                 tweetFile.write(json.dumps(tweet._json)+"\n")
-                s3file.set_contents_from_string(json.dumps(tweet._json)+"\n")
+                tweetFile.write(json.dumps(tweet._json)+"\n")
                 tweetCount += 1
                 tweetWordList = tweet.text.split()
-                #parse tweets into individual words for analysis, break file based on day and wordcount
-#                 for tweetWord in tweetWordList:
-#                     wordFile.write(tweetWord.encode("utf8")+"\n")
-#                     wordCount += 1
+                totalTweets += 1
         i += 1
-        print str(startdate.date()) + " to " + str(enddate.date()) + ", " + str(tweetCount) + " Tweets containing " + str(wordCount) + " words"
-#         tweetFile.close()
-#         wordFile.close()
+        print str(startdate.date()) + " to " + str(enddate.date()) + ", " + str(tweetCount) + " Tweets"
+        tweetFile.close()
+        s3file.set_contents_from_filename(tweetFilename)
         startdate = startdate+datetime.timedelta(days=1)
-        print "Twitter Search complete, tweets = " + str(tweetCount) + ", words = "+str(wordCount)
 except KeyboardInterrupt: 
         print "search interrupted for date: "+str(startdate.date())
-        print "files "+tweetFilename+" and "+wordFilename+" are incomplete"
-#         tweetFile.close()
-#         wordFile.close()
+        print "files "+tweetFilename +" is incomplete"
+        tweetFile.close()
+print "Retrieval complete, " + str(totalTweets) + " Tweets.\n"
 
 
     
