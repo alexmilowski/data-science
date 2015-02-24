@@ -189,6 +189,14 @@ manipulate in various ways.  The argument is a "query".  In this case, it specif
 
 # 3. MarkLogic #
 
+Note: For the various code in this section we'll use the following logging functionss:
+
+   var logError = function(error) { console.log(JSON.stringify(error, null, 2)); }
+   var dumpResult = function(results) { results.forEach(function(result) { console.log(JSON.stringify(result.content, null, 2)); }); };
+
+Also, refer to the [Node.js Application Developer's Guide](http://docs.marklogic.com/guide/node-dev) and the [Node.js API](http://docs.marklogic.com/jsdoc/index.html) for 
+more information about the facilities described here for MarkLogic.
+
 ## 3.1 Creating a Database ##
 
 You'll see that there are many options and features for databases.  You can safely ignore many of these features at this point but you do have
@@ -261,6 +269,83 @@ You can connect to a database by using the connection point and credentials you 
 In reality, this just configures the client.  Each connection over the protocol you are using will send authentication 
 information.  In the above case, a request will use a HTTP DIGEST challenge response.
 
+## 3.4 Inserting Data ##
+
+MarkLogic supports a variety of data formats other than just JSON.  In this activity, we'll focus on the ability to store JSON data.
+
+Documents can be written directly to the database simplying calling `write()` on `db.documents`:
+
+    var docs = [ { uri: "/test/A.json", content: { id: "A", animal: "monkey" } }, { uri: "/test/B.json", content: { id: "B", animal: "dog" } }, { uri: "/test/C.json", content: { id: "C", animal: "cat" } } ];
+    db.documents.write(docs).result(
+       function(response) { response.documents.forEach(function(document) { console.log("Stored "+document.uri); }); },
+       logError
+    );
+    
+The method takes a single document description or an array of descriptions.
+
+The description must have a `uri` property but may contain other metadata.  The most common options are:
+
+   * `uri` — the URI of the document being stored
+   * `content` — the JSON content object
+   * `contentType` — the media type of the document (typically application/json) 
+   * `collections` — an array of collection URIs to which this document belongs
+
+You can update the metadata for a document by just omitting the `content` property.  The content of the document will remain the
+same but any other metadata provided will be replaced by the operation.
+
+## 3.5 Deleting Data ##
+
+You can delete a single document by URI:
+
+    db.documents.remove('/test/D.json').result(
+       function(response) {
+          console.log(JSON.stringify(response));
+       } 
+    );
+    
+Or a whole collection by URI:
+
+    db.documents.removeAll({ collection: "/tests"}).result(
+       function(response) {
+          console.log(JSON.stringify(response));
+       } 
+    );
+
+## 3.6 Querying Data ##
+
+Through the Node.js API, queries built from functional expressions that compile into XQuery 
+underneath.  A call to `db.documents.query()` returns a set of documents (or portions of them) 
+that match your query.  From the query object you can specify various slices (partitions, portions,
+etc.) that let you subset the matching results.
+
+Note: we'll be using this abbreviation for the marklogic.queryBuilder API:
+
+    var qb = marklogic.queryBuilder;
+
+In this section, well use the following helper function"
+
+A simple query by example can be constructed as:
+
+    db.documents.query(qb.where(qb.byExample( { id: 'A' }))).result(dumpResult);
+   
+This will return all the documents that have a 'test' property that has the value 'A'.
+
+In query by example, you can use combinations of properties and structures as well:
+
+    db.documents.query(qb.where(qb.byExample( { id: 'A', animal: 'monkey' }))).result(dumpResult);
+
+Results can be paginated by selecting a particular slice.  For example, the first three:
+ 
+    db.documents.query(qb.where(qb.byExample( { id: 'A' })).slice(1,3)).result(dumpResult);
+   
+You can also use the `slice()` method to extract portions of the results.  This is useful if the resulting document
+is complex or large and you only need a small portion.
+
+The `extract` method takes a path expression (see [Traversing JSON Documents Using XPath](https://docs.marklogic.com/guide/app-dev/json#id_10326) ):
+
+    db.documents.query(qb.where(qb.byExample( { id: 'A' })).slice(qb.extract("/animal"))).result(dumpResult);
+    
+You can read more about how to manipulate the query results in [Refining Query Results](http://docs.marklogic.com/guide/node-dev/search#id_24160).
 
 
 # 4. Activity #
