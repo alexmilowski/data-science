@@ -233,17 +233,33 @@ You now need to create forests for the database:
 MarkLogic does not have one single default protocol for communication.  Instead, it supports a variety of connection methods of REST (HTTP), WebDAV, XDBC, and ODBC.  
 For this activity, you need to configure a REST connection to your database so that Node can communicate with the MarkLogic server.
 
-You can add a REST connection point by:
+You cannot configure a REST end point through the admin console.  To do so, you must sent a POST:
 
-  1. Navigation to "Configure -> Groups -> Default -> App Servers" in the left tree navigation.
-  2. Click on the "Create HTTP" tab.
-  3. Enter "Tweets" into "server name".
-  4. Enter "Tweets/" into "root".
-  5. Enter "8888" into "port".
-  6. Select "tweets" from the drop-down list box for "database".
-  7. Leave the rest unchanged and click on "OK".
+   curl -X POST --anyauth --user admin:admin -d @rest-api.json -H "Content-Type: application/json" http://127.0.0.1:8002/LATEST/rest-apis
+   
+with the configuration information in a JSON document [rest-api.json](rest-api.json):
+
+    { "rest-api": {
+         "name": "RESTstop",
+         "database": "tweets",
+         "port": "8888"
+       }
+    }
+    
+You can test that you've done so correctly by accessing a simple REST API URI:
+
+    $ curl --anyauth -u admin:admin http://127.0.0.1:8888/v1/values
+    <rapi:values-list xmlns:rapi="http://marklogic.com/rest-api"/>
 
 ## 3.3 Connecting to a database ##
+
+You can connect to a database by using the connection point and credentials you created previously:
+
+   var marklogic = require('marklogic');
+   var db = marklogic.createDatabaseClient({ host: 'localhost', port: '8888', user: 'admin', password: 'admin', authType: "DIGEST"});
+   
+In reality, this just configures the client.  Each connection over the protocol you are using will send authentication 
+information.  In the above case, a request will use a HTTP DIGEST challenge response.
 
 
 
