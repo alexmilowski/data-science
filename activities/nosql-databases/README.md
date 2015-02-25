@@ -78,13 +78,13 @@ To get setup:
  3. Run `setup.sh` in that directory.
  4. Run `forkdb.sh` to start MongoDB.
  
- For example (assuming this directory):
+For example (assuming this directory):
  
-     mkdir test
-     cp mongo.conf test
-     cd test
-     ../setup.sh
-     ../forkdb.sh
+    mkdir test
+    cp mongo.conf test
+    cd test
+    ../setup.sh
+    ../forkdb.sh
      
 You should be able to confirm MongoDB is running by examining the `mongo.pid` file and looking for the process with the same identifier.
 
@@ -191,8 +191,8 @@ manipulate in various ways.  The argument is a "query".  In this case, it specif
 
 Note: For the various code in this section we'll use the following logging functionss:
 
-   var logError = function(error) { console.log(JSON.stringify(error, null, 2)); }
-   var dumpResult = function(results) { results.forEach(function(result) { console.log(JSON.stringify(result.content, null, 2)); }); };
+    var logError = function(error) { console.log(JSON.stringify(error, null, 2)); }
+    var dumpResult = function(results) { results.forEach(function(result) { console.log(JSON.stringify(result.content, null, 2)); }); };
 
 Also, refer to the [Node.js Application Developer's Guide](http://docs.marklogic.com/guide/node-dev) and the [Node.js API](http://docs.marklogic.com/jsdoc/index.html) for 
 more information about the facilities described here for MarkLogic.
@@ -263,8 +263,8 @@ You can test that you've done so correctly by accessing a simple REST API URI:
 
 You can connect to a database by using the connection point and credentials you created previously:
 
-   var marklogic = require('marklogic');
-   var db = marklogic.createDatabaseClient({ host: 'localhost', port: '8888', user: 'admin', password: 'admin', authType: "DIGEST"});
+    var marklogic = require('marklogic');
+    var db = marklogic.createDatabaseClient({ host: 'localhost', port: '8888', user: 'admin', password: 'admin', authType: "DIGEST"});
    
 In reality, this just configures the client.  Each connection over the protocol you are using will send authentication 
 information.  In the above case, a request will use a HTTP DIGEST challenge response.
