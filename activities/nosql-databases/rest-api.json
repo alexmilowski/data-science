@@ -1,0 +1,5 @@
+{ "rest-api": {
+    "name": "RESTstop",
+    "database": "tweets",
+    "port": "8888"
+} }
