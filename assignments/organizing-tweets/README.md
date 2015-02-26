@@ -21,7 +21,7 @@ We need to answer the following questions by "querying" the data:
 We are going to answer these questions using three different database storage techonlogies:
 
   * Key/Value — [AWS S3](http://aws.amazon.com/s3/)
-  * NoSQL Database — [Mongo](https://www.mongodb.org) or [MarkLogic](http://www.marklogic.com
+  * NoSQL Database — [Mongo](https://www.mongodb.org) or [MarkLogic](http://www.marklogic.com)
   * Relational Database — SQLite, MySQL, etc.
   
 ## Tasks ##
@@ -32,12 +32,12 @@ that which is sufficient to answer the tree questions.
 
   1. Draw a UML ER diagram how you would model your information extracted from the raw tweet data.
   2. For each database category of Key/Value, NoSQL, and Relational, decribe a systems architecture that contains:
-     1. Your implementation model of how data is actuall organized (e.g. a schema, collection structure, etc.).
-     2. Describes the process necessary to store the information into your implementation model.
-     3. Use pseudo-code / procedures to describe how you would answer each of the questions.
+     1. Your implementation model of how data is actually organized (e.g. a schema, collection structure, etc.).
+     2. The process necessary to store the information into your implementation model.
+     3. Pseudo-code / procedures that describe how you would answer each of the questions.
   3. For just one of the database categories, implement your architecture.
 
-## What to turn in ## 
+## What to turn in ##
 
 1. Your UML ER diagram.
 2. A document for each of the database categories for task #2.
