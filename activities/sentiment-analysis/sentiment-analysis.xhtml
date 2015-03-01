@@ -1,0 +1,162 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <title>Sentiment Analysis with NLTK</title>
+      <meta name="copyright" content="Copyright &#169; 2014 R. Alexander Miłowski"/>
+      <meta name="holder" content="R. Alexander Miłowski"/>
+      <meta name="creator" content="R. Alexander Miłowski"/>
+      <meta name="pubdate" content="2014-09-01"/>
+      <link rel="stylesheet" type="text/css" href="slidy/slidy.css"/>
+      <link rel="stylesheet" type="text/css" href="slidy/theme.css" />
+      <script type="text/javascript" src="slidy/slidy.js"/>
+      <script type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+      <style type="text/css">
+.slide .two-column pre {
+   width: 42%;
+   margin-left: 0.25em;
+}
+      </style>
+   </head>
+   <body>
+      <div class="background">
+         <header><img class="logo" src="ischool-logo.png"/></header>
+         <footer>
+            <p><a href="http://ischool.berkeley.edu/" target="new">Data Science 205: Storing and Retrieving Data; School of Information, UC Berkeley</a></p>
+         </footer>
+      </div>
+      <div class="slide cover title">
+         <hgroup>
+            <h1>Sentiment Analysis with NLTK</h1>
+         </hgroup>
+         <div class="author">
+            <p><a href="http://www.milowski.com/" rel="name">R. Alexander Miłowski</a></p>
+            <p><a href="mailto:milowski@ischool.berkeley.edu" rel="email">milowski@ischool.berkeley.edu</a></p>
+            <p>School of Information, UC Berkeley</p>
+         </div>
+      </div>
+      <div class="slide">
+         <h1>What is Sentiment Analysis</h1>
+         <blockquote><p>The use of natural language processing, text analysis and computational linguistics to identify and extract subjective information in source materials. <a href="http://en.wikipedia.org/wiki/Sentiment_analysis" target="def">(wikipedia)</a></p></blockquote>
+         <p>Essentially, we're:</p>
+         <ul>
+            <li>classifiying</li>
+            <li>passages of text</li>
+            <li>and assigning them labels</li>
+            <li>based on exemplars</li>
+            <li>associated with the labels.</li>
+         </ul>
+         <p>Typical models: Latent semantic analysis (LSA), Support Vector Machines (SVM), <q>Bag of Words</q> via Bayesian probabilities, ...</p>
+         <p>Note: Classification does not have to be boolean but can also be a set of more than two labels.</p>
+      </div>
+      <div class="slide">
+         <h1>Using NTLK for Sentiment Analysis</h1>
+         <ol>
+            <li>Select representative samples of your labels</li>
+            <li>Tokenize these samples into <q>significant</q> words</li>
+            <li>Create a frequency distribution from this set of words.</li>
+            <li>Annotate your samples with the frequency and labels to construct a training set.</li>
+            <li>Train your classifier on your representative samples.</li>
+            <li>Apply your classifier to new input to assign labels.</li>
+         </ol>
+      </div>
+      <div class="slide">
+         <h1>Install NLTK</h1>
+         <pre>
+pip install nltk
+python -m nltk.downloader all
+         </pre>
+         <p>Or for everyone (e.g. Mac OS X / Linux):</p>
+         <pre>
+sudo pip install nltk
+sudo python -m nltk.downloader -d /usr/share/nltk_data all
+         </pre>
+      </div>
+      <div class="slide">
+         <h1>Example: Candy Corn - love it or hate it!</h1>
+         <div class="two-column">
+         <pre>
+negativeTweets = [ 
+("We're all aware by now that Candy corn is evil","nasty"),
+("Candy corn is so bad for you","nasty"),
+("If you eat candy corn... I guess you would eat crayons, candles and ear wax too","nasty"),
+("Candy corn is nasty","nasty"),
+("Never not horrified by candy corn.","nasty")
+]            
+         </pre>
+            <pre>
+positiveTweets = [
+("I'm craving candy corn","best"),
+("I still love candy corn","best"),
+("Yes, I tweet candy corn and not broccoli. You know why? Because candy corn is more exciting.","best"),
+("Autumn candy corn. So sweet; so good; so sticky. I taste no regrets.","best"),
+("I love candy corn","best"),
+("Candy corn is good","best")
+]               
+            </pre>
+         </div>
+      </div>
+      <div class="slide">
+         <h1>Turn Sentences into Words</h1>
+         <pre>
+# words we will exclude
+stopWords = [ "candy", "corn", "and", "not", "the", "...", "'re"]
+
+# process the tweets into a training set of words
+tweets = []
+for (tweet, sentiment) in positiveTweets + negativeTweets:
+    words = [e.lower() for e in nltk.word_tokenize(tweet) if len(e) >= 3 and not e.lower() in stopWords]
+    tweets.append((words, sentiment))            
+         </pre>
+      </div>
+      <div class="slide">
+         <h1>Create a Frequency Distribution</h1>
+         <pre>
+def getAllWords(tweets):
+    all = []
+    for (words, sentiment) in tweets:
+      all.extend(words)
+    return all
+    
+wordlist = nltk.FreqDist(getAllWords(tweets))
+wordFeatures = wordlist.keys()            
+         </pre>
+      </div>
+      <div class="slide">
+         <h1>Create a Training Set</h1>
+         <pre>
+def extractFeatures(document):
+    words = set(document)
+    features = {}
+    for word in wordFeatures:
+        features['contains(%s)' % word] = (word in words)
+    return features
+    
+trainingSet = nltk.classify.apply_features(extractFeatures, tweets)            
+         </pre>
+      </div>
+      <div class="slide">
+         <h1>Train the Classifier</h1>
+         <p>The classifier uses the input training data (inputs, their features, and their labels) to build a Naive Bayes classifier that assumes independence between features.</p>
+         <pre>
+         classifier = nltk.NaiveBayesClassifier.train(trainingSet)
+         </pre>
+         <p>You can now call <code>classify(features)</code> on any data once you've extracted its features (e.g., word counts).</p>
+      </div>
+      <div class="slide">
+         <h1>Classify your data</h1>
+         <pre>
+tests = [
+"Now's as good a time as any to remind you candy corn is the worst and if you like it you have a deep personal failing that needs examining.", #nasty
+"Candy corn is my favorite candy on Halloween", #best
+"Candy corn is sugar and wax - nasty", #nasty
+"Can't get enough candy corn love", #best
+"Candy corn is evil",  #nasty
+"Candy corn is bad candy"  # nasty
+]
+for tweet in tests:
+   print classifier.classify(extractFeatures(tweet.split())),": ",tweet
+</pre>
+         <p>The outputs are your labels.</p>
+         <p>The labels can capture <q>sentiments</q> (e.g. best vs nasty).</p>
+      </div>
+   </body>
+</html>
