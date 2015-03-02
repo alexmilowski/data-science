@@ -20,7 +20,7 @@ We're going to work our way through training a classifier for to detect positive
 will not make you an expert.  Instead, it is designed to give you a sense of the steps and data pipeline
 necessary to run such a classifier.
 
-We have a set of movie review data gathered from the "Rotten Tomatoes" website by Pang/Lee in 2005.  Each review has
+We have a set of movie review data gathered from the ["Rotten Tomatoes" website by Pang/Lee in 2005](http://www.cs.cornell.edu/People/pabo/movie-review-data/).  Each review has
 been extracted from the page and turned into a single line of text that is categorized as positive or negative.
 
 The data is found in the [rt-polaritydata](rt-polaritydata/) directory:
