@@ -26,7 +26,20 @@ been extracted from the page and turned into a single line of text that is categ
 The data is found in the [rt-polaritydata](rt-polaritydata/) directory:
 
    * [rt-polarity.neg](rt-polarity.neg) — the original negative reviews in Windows 1252 text encoding
-   * [rt-polarity.neg](rt-polarity.neg,utf8) — the negative reviews in UTF-8 text encoding
+   * [rt-polarity.neg.utf8](rt-polarity.neg.utf8) — the negative reviews in UTF-8 text encoding
    * [rt-polarity.pos](rt-polarity.pos) — the original positive reviews in Windows 1252 text encoding
-   * [rt-polarity.pos](rt-polarity.pos,utf8) — the positive reviews in UTF-8 text encoding
+   * [rt-polarity.pos.utf8](rt-polarity.pos.utf8) — the positive reviews in UTF-8 text encoding
+   
+To apply the bag-of-words model, we must:
+
+  1. Decide on a set of "feature words" for the model.  These might be words like "bad", "good", "excellent", "horrible".
+  2. Process our data to produce a feature vector for each review text.
+  3. Train a classifier (e.g. a [Naive Bayse classifier](http://en.wikipedia.org/wiki/Naive_Bayes_classifier) on the data.
+  4. Apply the classifier non-annotated data (i.e. new reviews).
+  
+There are two simple examples of this process:
+
+   * [candy-corn.py](candy-corn.py) — an example of positive/negative sentiment (2-way classifier)
+   * [n-way.py](n-way.py) — an example of a multiple category (>2) classifier
+   
    

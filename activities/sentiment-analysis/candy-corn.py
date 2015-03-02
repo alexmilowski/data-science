@@ -1,7 +1,7 @@
 import nltk
 
 # negative
-negativeTweets = [ 
+negative = [ 
 ("We're all aware by now that Candy corn is evil","nasty"),
 ("Candy corn is so bad for you","nasty"),
 ("If you eat candy corn... I guess you would eat crayons, candles and ear wax too","nasty"),
@@ -10,7 +10,7 @@ negativeTweets = [
 ]
 
 # positive
-positiveTweets = [
+positive = [
 ("I'm craving candy corn","best"),
 ("I still love candy corn","best"),
 ("Yes, I tweet candy corn and not broccoli. You know why? Because candy corn is more exciting.","best"),
@@ -40,25 +40,25 @@ stopWords = [
 "'re"
 ]
 
-# process the tweets into a training set of words
-tweets = []
-for (tweet, sentiment) in positiveTweets + negativeTweets:
+# process the texts into a training set of words
+texts = []
+for (tweet, sentiment) in positive + negative:
     words = [e.lower() for e in nltk.word_tokenize(tweet) if len(e) >= 3 and not e.lower() in stopWords]
-    tweets.append((words, sentiment))
+    texts.append((words, sentiment))
     
-print tweets
+print texts
     
 
 # Get an ordered list of most frequently used words    
-def getAllWords(tweets):
+def getAllWords(texts):
     all = []
-    for (words, sentiment) in tweets:
+    for (words, sentiment) in texts:
       all.extend(words)
     return all
     
 print
     
-wordlist = nltk.FreqDist(getAllWords(tweets))
+wordlist = nltk.FreqDist(getAllWords(texts))
 print wordlist.pprint(100)
 wordFeatures = wordlist.keys()
     
@@ -69,7 +69,7 @@ def extractFeatures(document):
         features['contains(%s)' % word] = (word in words)
     return features
     
-trainingSet = nltk.classify.apply_features(extractFeatures, tweets)
+trainingSet = nltk.classify.apply_features(extractFeatures, texts)
 
 classifier = nltk.NaiveBayesClassifier.train(trainingSet)
 
