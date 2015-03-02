@@ -42,4 +42,33 @@ There are two simple examples of this process:
    * [candy-corn.py](candy-corn.py) — an example of positive/negative sentiment (2-way classifier)
    * [n-way.py](n-way.py) — an example of a multiple category (>2) classifier
    
-   
+## Activity ##
+
+### (A) Generate a word list and histogram ###
+
+Use nltk and the supporting code in [featureset.py](featureset.py) and [wordcounts.py](wordcounts.py) to generate a word count and histogram from the dataset.
+
+Use this to inform the choice of "features" (words) for you bag-of-words model.
+
+### (B) Train a classifier ###
+
+Use or modify the sample code in [train.py](train.py) to train a classifier and store it into a "pickled" object.
+
+### (C) Test a classifier ###
+
+The the classifier on various input data (see sample code [test.py](test.py)).
+
+### (D) Model Questions ###
+
+ 1. How can you improve the accuracy?
+ 2. Are there less often used words that are more characteristic of positive or negative reviews?
+ 3. Does including such words (less used) improve the accuracy?
+ 4. What happens to sentences that exhibit no features?
+ 5. Does changing the stemmer or lemmanizer improve the accuracy?
+ 
+### (E) Scale-up Questions ###
+
+  1. How would you apply a classifier to a large amount of data?
+  2. Given a raw newly acquired data set, what is the data pipeline necessary to apply such a classifier?
+  3. How do you organize the input and output of running a such classifier on AWS S3 (or other key/value storage such as HDFS)?
+  
