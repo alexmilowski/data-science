@@ -1,0 +1,31 @@
+3. How long did it take? 
+Locally:
+real	2m16.012s
+user	1m57.544s
+sys	0m14.250s
+On Amazon Cloud:
+real	13m9.167s
+user	0m2.487s
+sys	0m0.546s
+
+4 and 5.
+There are 2042 "address" tags in local output.
+There are also 2042 "address" tags in EMR output.
+Yes, they gave the same answer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+4."address" number
+
+
+
