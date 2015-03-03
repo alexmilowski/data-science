@@ -1,0 +1,41 @@
+David Paculdo
+Assignment 1
+
+3. How long did it take to run the process for each of these?
+Locally:
+	real    2m39.408s
+	user    2m29.342s
+	sys     0m4.741s
+On EMR:
+	real    13m10.863s
+	user    0m1.921s
+	sys     0m0.280s
+
+
+4. How many “address” tags are there in the input?
+For the strict tag of “address”, there are 2042 occurrences locally and on EMR.
+	
+For all tags that contain address, the answers locally are:
+	out/part-00000:"address"        2042
+	out/part-00000:"addresses"      19
+	out/part-00000:"addressother"   1
+	out/part-00001:"ccbillingaddress"       1
+	out/part-00001:"creditcardbillingaddress"       1
+	out/part-00001:"emailaddressalternate"  1
+	out/part-00001:"eoneaddress"    1
+	out/part-00001:"otheraddresses" 31
+
+For all tags that contain address, the answers from EMR are:
+	emr-out/part-00000.emr:"addressother"   1
+	emr-out/part-00000.emr:"emailaddressalternate"  1
+	emr-out/part-00001.emr:"ccbillingaddress"       1
+	emr-out/part-00001.emr:"eoneaddress"    1
+	emr-out/part-00002.emr:"address"        2042
+	emr-out/part-00002.emr:"addresses"      19
+	emr-out/part-00002.emr:"creditcardbillingaddress"       1
+	emr-out/part-00002.emr:"otheraddresses" 31
+
+5. Does the local version and EMR version give the same answer?
+In terms of counts, it appears at least for “address” the local version and the EMR version give the same answer. 
+
+However, as far as the sorting of the tags, there is a great deal of difference. It looks like locally running the program yields a complete alphabetization of the output, but this does not appear to be the case for EMR. My guess is the tags for the first file are alphabetized and counted, then the second file is alphabetized and counted with duplicate entries merged and summed with non-duplicate entries being appended to the end.
