@@ -1,0 +1,32 @@
+1. A copy of the output directory for the tag counter running locally (name the directory 'out').
+
+See “out-local” directory that is also uploaded.
+Please note that I merged the different parts into "parts-merged" file (used command "cat part-00000 part-00001 > parts-merged" ).
+
+2. A copy of the output from S3 for the tag counter running on AWS (name the directory 'emr-out').
+
+See “out-AWS” directory that is also uploaded.
+I merged the different parts into "parts-merged" file.
+
+3. How long did it take to run the process for each of these?
+
+Location machine time:
+real	2m12.147s
+user	2m8.509s
+sys	0m4.926s
+
+AWS time:
+real	13m48.356s
+user	0m1.823s
+sys	0m0.237s
+
+4. How many address tags are there in the input?
+
+Local: 2042 tags
+
+AWS: 2042 tags
+
+
+5. Does the local version and EMR version give the same answer?
+
+They gave the same answer of 2042 tags.
