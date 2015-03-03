@@ -32,16 +32,16 @@ subsequent operations by your application.  To do so, use the following procedur
  
 The response should be relatively immediate.
 
-Now you have for things:
+Now you have four things:
 
  1. A consumer key that identifies your application.
  2. A consumer secret that acts as a "password" for your application.
  3. An access token that identifies your authorized access.
  4. An access token secret that acts as a "password" for that authorized access.
  
-At any point, you can revoke the access key or regenerated any of these values.
+At any point, you can revoke the access key or regenerate any of these values.
  
-To completely disable the application, you must delete the application.  This does is remove the consumer key, secret, and access tokens from
+To completely disable the application, you must delete the application.  This removes the consumer key, secret, and access tokens from
 Twitter's system and any program using them will immediately stop working.
  
 ### Test your Application ###
@@ -53,7 +53,7 @@ access token secret.  You should then be able to just run the program and get a 
     
 ## Data Collection Activities ##
 
-While real-time data collection is interesting, if you are research data provided by tweets, search is the simple way to 
+While real-time data collection is interesting, if you are researching data provided by tweets, search is the simple way to 
 collect information - even from the recent past.  Instead of collecting information and sorting it ourselves, we'll use 
 the twitter search API to partition information by date/time and other facets to partition the collected data.
 
@@ -86,7 +86,7 @@ Suppose you are going to collect information about a particular topic (e.g. a ha
 similar to `search.py` to do so.  If you remove the `200` parameter to `items()` you'll be accessing all the search results in
 as much as Twitter will give you over time via the rate limiting.
 
-Change the search.py code to output data to a file and limiting the amount of tweets per file.
+Change the search.py code to output data to a file and remove the code limiting the amount of tweets per file.
 
 Here are some things to consider:
 

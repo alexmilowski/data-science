@@ -1,0 +1,29 @@
+Shelly Stanley
+2015-0112 DATASCI W205: Storing and Retrieving Data - 1
+
+Getting Started
+
+*  How long did it take to run the process for each of these? 
+
+Locally: 
+real	 3m7.032s
+user	 3m4.921s
+sys   0m5.905s
+
+AWS EMR:
+real	 12m59.690s
+user	 0m2.080s
+sys	0m0.287s
+
+
+*  How many address tags are there in the input? 
+
+"address"	2042 
+There are 2,042 address tags in the input.
+
+*  Does the local version and EMR version give the same answer?
+
+Yes!
+
+Local 2185 + 2955 = 5140 rows of output
+EMR 1767 + 1686 + 1687 = 5140 rows of output
