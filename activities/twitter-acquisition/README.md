@@ -104,8 +104,8 @@ Here is some helper code for serialization that relies on the `json` python modu
        first = True
        count = 0
        def start(self):
-          count += 1
-          fname = "tweets-"+str(count)+".json"
+          self.count += 1
+          fname = "tweets-"+str(self.count)+".json"
           self.out = open(fname,"w")
           self.out.write("[\n")
           self.first = True

@@ -31,7 +31,7 @@ In general, langauges like English, Spanish, and other modern european languages
 provided by NLTK.  These languages also share common mechanism for simple tokenization into sentences and words.
 
 A passage of text, like the above, can be first be broken down into sentences and then into words:
-
+```
    import nltk
    
    text = '''Many algorithms for processing text require taking passages of text and turn them into sentences
@@ -43,7 +43,7 @@ A passage of text, like the above, can be first be broken down into sentences an
    for s in sentences:
       words = nltk.tokenize.word_tokenize(s)
       print words
-      
+```      
 Notice how the punctuation of the sentences are mixed in with the words.  Tokenization doesn't take into account any
 syntax that might be present.  As such, text tha contains any kind of annotation, URLs, etc. may need to be filtered
 when turned into word tokens.
