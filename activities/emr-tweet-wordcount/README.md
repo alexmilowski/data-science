@@ -56,4 +56,4 @@ You should now have 4 files:
     tweet-wc/output/part-00001
     tweet-wc/output/part-00002
     
-The output is a list of primes and exponents for a very large number!
+The output is a list of word counts split amongst the part-nnnnn files.
