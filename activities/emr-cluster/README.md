@@ -23,9 +23,29 @@ You'll need two things to run any of the demos:
    1. An S3 bucket to store logs, code, input, and output data.  
    2. An EMR cluster to run the examples.
 
+
 You can start a simple test cluster by doing the following:
 
     aws emr create-cluster --ami-version 3.4.0 --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium --name "Test Cluster" --log-uri s3://mybucket/logs/ --enable-debugging --tags Name=emr
+    
+Alternatively, you can use JSON ro describe the cluster.  For example, in a file `cluster.json`:
+
+    [
+        {
+          "InstanceGroupType": "MASTER",
+          "InstanceCount": 1,
+          "InstanceType": "m1.medium"
+        },
+        {
+          "InstanceGroupType": "CORE",
+          "InstanceCount": 2,
+          "InstanceType": "m1.medium"
+        }
+    ]
+    
+and then the command:
+
+    aws emr create-cluster --ami-version 3.4.0 --instance-groups file://./cluster.json --name "Test Cluster" --log-uri s3://mybucket/logs/ --enable-debugging --tags Name=emr
 
 The command will return the "Cluster ID" that you will need for further manipulations including to terminating the cluster.  You can always find this via the command:
 
