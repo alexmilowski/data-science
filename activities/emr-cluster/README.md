@@ -28,7 +28,7 @@ You can start a simple test cluster by doing the following:
 
     aws emr create-cluster --ami-version 3.4.0 --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium --name "Test Cluster" --log-uri s3://mybucket/logs/ --enable-debugging --tags Name=emr
     
-Alternatively, you can use JSON ro describe the cluster.  For example, in a file `cluster.json`:
+Alternatively, you can use JSON ro describe the cluster.  For example, in a file [cluster.json](cluster.json):
 
     [
         {
