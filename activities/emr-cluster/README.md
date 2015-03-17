@@ -1,4 +1,6 @@
-# SETUP #
+# Creating Clusters for EMR #
+
+## Setup ##
 
 Install the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/) with 
 
@@ -18,17 +20,22 @@ Now you can test it by asking about your running EC2 instances (you may have non
 
     aws ec2 describe-instances
     
-You'll need two things to run any of the demos:
+You'll need two things to run any of the EMR activities:
 
    1. An S3 bucket to store logs, code, input, and output data.  
    2. An EMR cluster to run the examples.
-
-
+    
+## Basics of EMR Clusters ##
+    
 You can start a simple test cluster by doing the following:
 
     aws emr create-cluster --ami-version 3.4.0 --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m1.medium InstanceGroupType=CORE,InstanceCount=2,InstanceType=m1.medium --name "Test Cluster" --log-uri s3://mybucket/logs/ --enable-debugging --tags Name=emr
     
-Alternatively, you can use JSON ro describe the cluster.  For example, in a file [cluster.json](cluster.json):
+The --instance-groups option contains a set of triples in the shorthand syntax for `InstanceGroupType` (one of "MASTER", "CORE", or "TASK"), 
+`InstanceType` (a EC2 instance type), and `InstanceCount` (the number of instances to start).  Alternatively, you can use JSON to describe the 
+cluster instance groups.
+
+For example, in a file [cluster.json](cluster.json):
 
     [
         {
@@ -56,6 +63,38 @@ You can terminate a cluster by:
     aws emr terminate-clusters --cluster-id <cluster-id>
 
 The documentation examples consistently use the bucket name 'mybucket'.  You'll need to replace that with your bucket name to get the commands to work.
+
+## Bootstrap Actions ##
+
+Once a generic cluster instance has been started, you may need to install specialized software (e.g. python packages).  You can specify a set of one-time actions 
+called "Bootstrap Actions" when you create the cluster using the `--bootstrap-actions` option.  Like the --instance-groups option, you can use the shorthand syntax or JSON.
+
+Each action must contain three things:
+
+   * Path — the path to a script (typically in S3)
+   * Args - any arguments to the script
+   * Name — a name to show in the console
+   
+The shorthand is:
+
+    --bootstrap-actions Path=s3://mybucket/python.sh,Name="Install python packages",Args=[numpy,nltk]
+   
+The JSON:
+
+    [
+       {
+          "Path" : "s3://mybucket/python.sh",
+          "Name" : "Install python packages",
+          "Args" : ["numpy","nltk"]
+       }
+    ]
+    
+The script stored at s3://mybucket/python.sh might be something like:
+
+    #!/bin/bash
+    sudo pip install $*
+    
+## Note on S3 Buckets ##
 
 You can create a bucket by:
 
