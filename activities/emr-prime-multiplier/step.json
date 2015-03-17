@@ -1,0 +1,12 @@
+{
+   "Type" : "STREAMING",
+   "Name" : "Multiply",
+   "ActionOnFailure" : "CONTINUE",
+   "Args" : [
+      "-files","s3://mybucket/prime-factors.py",
+      "-mapper","prime-factors.py",
+      "-reducer","aggregate",
+      "-input","s3://mybucket/multiply/input",
+      "-output","s3://mybucket/multiply/output"
+   ]
+}

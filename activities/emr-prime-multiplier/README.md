@@ -33,13 +33,30 @@ We need to store the line count program:
     
 ### Step 3 ###
     
-Now we add the streaming step to do the work:
+Now we add the streaming step to do the work (shorthand)
 
     aws emr add-steps --cluster-id <your-id> --steps Type=STREAMING,Name='Multiply',ActionOnFailure=CONTINUE,Args=--files,s3://mybucket/prime-factors.py,-mapper,prime-factors.py,-reducer,aggregate,-input,s3://mybucket/multiply/input,-output,s3://mybucket/multiply/output
 
-Note: don't forget to use your cluster id and bucket name in the above.
+or using JSON:
 
-[TODO: use JSON syntax?]
+    aws emr add-steps --cluster-id <your-id> --steps file://./step.json
+    
+where `step.json` is:
+    
+    {
+       "Type" : "STREAMING",
+       "Name" : "Multiply",
+       "ActionOnFailure" : "CONTINUE",
+       "Args" : [
+          "-files","s3://mybucket/prime-factors.py",
+          "-mapper","prime-factors.py",
+          "-reducer","aggregate",
+          "-input","s3://mybucket/multiply/input",
+          "-output","s3://mybucket/multiply/output"
+       ]
+    }
+    
+Note: don't forget to use your cluster id and bucket name in the above.
 
 This command returns the step id that you can use for further monitoring.  If you use an 'm1.medium' instance type, this job should take 1 minute to process and 2 minutes of elapsed time.
 
