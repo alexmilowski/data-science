@@ -34,7 +34,7 @@ For this activity, acquire the first three months of data for 2015:
 
     python acquire.py avg-rcp85 60 "[40,-125,35,-120]" 2015-01 2015-03 dataset/
     
-This should take about x minutes.
+This should take about 2-3 minutes.
 
 ## Understanding the Data ##
 
@@ -73,4 +73,59 @@ The two supporting libraries can be put together:
        for seq in seqs.sequencesFromQuadrangle(0.5,[40,-125,35,-120]):
           print "{}-{:02d},{}".format(month.year,month.month,seq)
    
+## Input Example ##
+
+Because we'll be running the example locally, we can just create input from each of the data files where each line contains a single 
+JSON object.  The example code [input-example.py](input-example.py) produces an average via map/reduce (mrjob) over the data loaded.
+
+To run the example on the first three months we acquired:
+
+    cat dataset/2015-0[1-3]*.json | python input-example.py
+    
+The mapper loads the data from the line given and computes an average:
+
+    def mapper(self, _, line):
+       obj = json.loads(line)
+       yield "average",sum(obj["data"])/len(obj["data"])
+
+## Average Example ##
+
+A more complicated example in [average.py](average.py) computes an average by month and keeps track of the counts.  It uses a combiner
+to collect the sequence numbers associated with the month and then does the reduce step to compute the overall average.  It uses the 
+counts to make sure the average is calculated correctly.
+
+To run the example on the first three months we acquired:
+
+    cat dataset/2015-0[1-3]*.json | python average.py
+    
+Note that the average is not quite the same.
+
+## Activity ##
+
+We'd like to take these simple examples and compute over a more generic input.  We can transition our code to run over a local dataset (or one in S3)
+by using a setup like [by-sequences.py] where the data is retrieved from a data set and the input is a specification of what to process.
+
+This program assumes input in a CSV format with the columns:
+
+   * lat1 — the NW latitude of the quadrangle
+   * lon1 — the NW longitude of the quadrangle
+   * lat2 — the SE latitude of the quadrangle
+   * lon2 — the SE longitude of the quadrangle
+   * size — the count of 1/120° arc lengths of the resolution (usually 60)
+   * startYear - the year to start
+   * startMonth - the month to start
+   * endYear — the year to end
+   * endMonth — the month to end
+   
+An input might look like:
+
+    #lat1,lon1,lat2,lon2,size,startYear,startMonth,endYear,endMonth
+    40,-125,35,-120,60,2015,02,2015,03
+    
+and you can run the sample code like:
+
+    python by-sequences.py --data-dir `pwd`/dataset/ < input-sequences.txt
+    
+The sample code is a two-step map/reduce job.  Your task is to modify it so that it correcly computes an average for the given input line.  Take a look 
+at `average.py` and see how you might modify the various methods and add/replace them in `by-sequences.py`.
 
