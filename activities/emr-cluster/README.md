@@ -79,7 +79,7 @@ The shorthand is:
 
     --bootstrap-actions Path=s3://mybucket/python.sh,Name="Install python packages",Args=[numpy,nltk]
    
-The JSON:
+The JSON in `bootstrap.json`:
 
     [
        {
@@ -88,6 +88,10 @@ The JSON:
           "Args" : ["numpy","nltk"]
        }
     ]
+    
+with the option:
+
+    --bootstrap-actions file://./bootstrap.json
     
 The script stored at s3://mybucket/python.sh might be something like:
 
