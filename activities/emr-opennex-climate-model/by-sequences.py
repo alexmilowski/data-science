@@ -8,12 +8,15 @@ import datetime
 import seqs
 import date_partitions as partitions
 
+# Gathers data based on traversing sequence numbers for a given region and period of time
 class ListSequences(MRJob):
 
+   # Add a data directory for the data on disk
    def configure_options(self):
       super(ListSequences, self).configure_options()
       self.add_passthrough_option('--data-dir',help="The directory where the data is stored.")
       
+   # Yields the set of sequence numbers for each year/month for the requested region
    def year_seq(self,_,line):
       if line[0] == '#':
          return
@@ -32,6 +35,7 @@ class ListSequences(MRJob):
          for seq in seqs.sequencesFromQuadrangle(size / 120.0,quad):
             yield "{}-{:02d}".format(month.year,month.month),(size,seq)
             
+   # Computes the average for a year/month + quadrangle + sequence number by loading the data (JSON)
    def average_quadrangle(self, yearMonth, quadSpec):
       size,seq = quadSpec
       fileName = self.options.data_dir+(os.sep if self.options.data_dir[-1]!=os.sep else "")+yearMonth+"-"+str(size)+"-"+str(seq)+".json"
@@ -41,6 +45,7 @@ class ListSequences(MRJob):
          f.close()
          yield yearMonth,(1,len(obj["data"]))
 
+   # Defines the job as a 2-step map-only job
    def steps(self):
         return [
             self.mr(mapper=self.year_seq,
