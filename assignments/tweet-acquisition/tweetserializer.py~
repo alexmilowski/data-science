@@ -1,6 +1,6 @@
 #Kasane Utsumi - 3/20/2015
 #tweetserializer.py
-#This is a utility class that stores x number of tweet in json format per file and then uploads each file to S3.
+#This is a utility class that keeps stores x number of tweet in json format per file and then upload file to S3.
 
 import json
 import boto

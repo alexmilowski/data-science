@@ -1,6 +1,6 @@
 #Kasane Utsumi - 3/20/2015
 #tweetanalyzer.py
-#This is a utility class that downloads chunked tweet files from S3, and creates a dictionary with word as a key and frequency of occurrence as a value. 
+#This is a utility class that downloads chunked tweet files from S3, and create a dictionary with word as a key and frequency of occurrence as a value. 
 
 import json 
 import os

@@ -70,6 +70,5 @@ tweetSerializer = tweetserializer.TweetSerializer(500,bucket,start)
 for tweet in tweepy.Cursor(api.search,q=q+" since:" + start + " until:" + end).items():
    tweetSerializer.write(tweet)
 
-#if there is any open file (total number of tweets %500 was not 0), close the last file and upload to S3
 tweetSerializer.end()
 
