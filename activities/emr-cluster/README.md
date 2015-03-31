@@ -98,6 +98,33 @@ The script stored at s3://mybucket/python.sh might be something like:
     #!/bin/bash
     sudo pip install $*
     
+### Testing Bootstrap Actions ###
+
+In general, if you script runs on a like-operating system (e.g. linux of the same flavor), you'll be in good shape.  AWS EMR's AMI are based on RedHat/CentOS and 
+so scripts that work on those particular flavors may work.  The right way to test bootstrapping is to use the specific AMI for the EMR version, start an EC2 
+instance, and test on that machine.
+
+### Testing Bootstrapping using EMR AMIs ###
+
+You can test your bootstrapping commands by just starting the exact AMI used by EMR.  When you start a cluster, you can look up the 
+AMI used by EMR in your EC2 console.  Under the details of a running or terminate instance associated with your cluster, you'll see
+the AMI listed.  It should be a identifier formatted like "ami-xxxxxxxx".
+
+For example, ami-2e88aa46 is the identifier for AMI version 3.6.0 that you can select when you start your cluster.  You can then
+start an EC2 instance using that AMI using the CLI:
+
+    aws ec2 run-instances --image-id ami-2e88aa46 --key-name your-key-name --instance-type m1.medium --placement AvailabilityZone=us-east-1c
+
+In the above, you'll want to list your actual key name in place of `your-key-name` and adjust the `AvailabilityZone` value to your preference.
+    
+Now you can ssh into the machine using your key and the user `hadoop`.  This user has sudo privileges and so should be able to run your script exactly
+as EMR would during cluster bootstrapping.
+
+Once you are done, you can shutdown the instance via the console in the browser or use the instance ID returned from the `run-instances` command in the following:
+   
+    aws ec2 terminate-instances --instance-ids i-3259abcf    
+    
+    
 ## Note on S3 Buckets ##
 
 You can create a bucket by:
