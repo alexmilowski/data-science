@@ -64,6 +64,14 @@ You can terminate a cluster by:
 
 The documentation examples consistently use the bucket name 'mybucket'.  You'll need to replace that with your bucket name to get the commands to work.
 
+## Resizing a Cluster ##
+
+You can add core or task nodes to a running cluster via the cluster details.  Clicking on "Resize" next to "Network and Hardware" will give you the ability to add Core and Task nodes
+whilst choosing the instance type.  Clicking on "Resize" in the "Hardware" section only allows you to change the number of nodes of a given category with the same instance type.
+
+Both of these are useful techniques to adjust your running cluster once you have found it to be insufficient for processing data.  The adjustment only happens after the currently 
+running step completes.  As such, you may need to kill a running step if you know it will take too long to complete to adjust the size your running cluster.
+
 ## Bootstrap Actions ##
 
 Once a generic cluster instance has been started, you may need to install specialized software (e.g. python packages).  You can specify a set of one-time actions 
