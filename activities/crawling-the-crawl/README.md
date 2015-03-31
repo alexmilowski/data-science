@@ -39,7 +39,7 @@ name and you should replace that with your bucket name.
 
 Also, you'll need your AWS key name so that you have SSH access to the cluster.
 
-### Start a Cluster ###
+### 1. Start a Cluster ###
 
 First, copy the bootstrapping script [cc-bootstrap.sh](cc-bootstrap.sh) to the root of your bucket (e.g. to s3://mybucket/cc-bootstrap.sh):
 
@@ -52,3 +52,72 @@ There is a script in the code called [start.sh](start.sh) that uses the AWS CLI 
     ./start.sh mykey mybucket
     
 It will start the cluster defined in [cluster.json](cluster.json).
+
+*You'll need this cluster at the end.  Don't start the cluster until you need it a save yourself a bit a money.*
+
+### 2. Get the manifest ###
+
+At the root of the crawl there should be several compressed  manifest files that have paths to the data.  Retrieve these files from S3 and examine the WAT file.
+
+The manifest contains a set of paths into the S3 bucket.  You can convert these to S3 URIs by:
+
+    gzip -dc wat.paths.gz | python s3.py
+    
+### 3. Retrieve sample data ###
+
+We will be working with the WAT metadata from here forward.  You may want to retrieve some sample data to work locally and then test your code on a cluster afterwards.
+
+You can get the very first partition by:
+
+    gzip -dc wat.paths.gz | python s3.py | head -n 1
+    
+You can use the AWS CLI to download this locally from S3.  Be warned that the data file is about 400MB in size.
+
+Alternatively, you can use the `extract-CC-MAIN-20150124161055-00000-ip-10-180-212-252.ec2.internal.warc.wat.gz` file that is an extract of the first 907 records of the first partition.
+
+### 4. View the data ###
+
+Just take a peek:
+
+    gzip -dc extract-CC-MAIN-20150124161055-00000-ip-10-180-212-252.ec2.internal.warc.wat.gz | more
+    
+What's in there?  Looks like JSON data ...
+
+### 5. Run the example MRJob Locally ###
+
+There is sample code in [mrcc.py](mrcc.py) and [ccex.py](ccex.py).
+
+Run the example on the extract:
+
+    echo `pwd`/extract-CC-MAIN-20150124161055-00000-ip-10-180-212-252.ec2.internal.warc.wat.gz | python ccex.py
+    
+What does that command do?
+
+What did the program do?  Do you know how this works?
+
+Notice something funny about the output?  Explain your observation based on the input data.
+
+
+### 6. Modify the example ###
+
+One basic issue with using the common crawl is to determine whether your target sites are in there.  Thus, one simple task is to count the domains crawled within
+a particular data set.
+
+Can you modify [ccex.py](ccex.py) to count domains?
+
+The WAT data in WARC format contains metadata extracted from the crawl for each page.  Process the data to extract and count the domain names.  Be careful to remove subdomains 
+so that variants like `www1.hp.com` and `www2.hp.com` reduce to `hp.com`.
+
+### 7. Run it on a cluster ###
+
+Once you have your script read, you can run it directly on the dataset hosted in AWS.  All you need to do is provide a list of the S3 URIs you want to process as the input.
+
+One simple way to do that is from the path metadata.  For example, the first 10 listed is:
+
+    gzip -dc wat.paths.gz | python s3.py | head -n 10
+    
+There is a script called [run.sh](run.sh) that will launch your job on your cluster and it takes the script, the bucket, and the cluster identifier as parameters:
+
+    gzip -dc wat.paths.gz | python s3.py | head -n 10 | ./run-step.sh myscript.py mybucket j-xxxxxxxxxxxxx
+
+where `j-xxxxxxxxxxxxx` is your cluster identifier.
