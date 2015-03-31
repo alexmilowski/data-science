@@ -124,18 +124,116 @@ Once you are done, you can shutdown the instance via the console in the browser 
    
     aws ec2 terminate-instances --instance-ids i-3259abcf    
     
+## Running "Steps" ##
+
+A step is a unit of work.  You add can steps to your cluster via the AWS CLI or via libraries like MRJob.
+
+A step contains a set of jobs and a job contains a set of tasks (e.g. mappers and reducers).
+
+Often, a single step contains a single job that contains a map/reduce process.  That map/reduce process is turned into a set of map tasks based on the input size.  The control over 
+that process is handled by the input splitter used in Hadoop.  Subsequently, the number of reduce tasks depends on the number of map tasks.  These are all things you can control when you
+configure Hadoop.
     
-## Note on S3 Buckets ##
+    
+### Running Steps via AWS CLI ###
+
+The AWS CLI command `aws emr add-steps` is used to add steps to your cluster.  The cluster idenifier is necessary and you can find this in the cluster details.
+
+The step is described by a set of metadata:
+
+   * Name — A descriptive name.
+   * Type — the type of Hadoop job (i.e. one of "CUSTOM_JAR", "STREAMING", "HIVE", "PIG", "IMPALA")
+   * Args - a set of arguments to pass to the step
+   * Jar — a location of a jar implementing the step (only for "CUSTOM_JAR").  This location must be accessible the Hadoop cluster and may be an S3 URI.
+   * ActionOnFailure — One of "TERMINATE_CLUSTER", "CANCEL_AND_WAIT" (pause the step queue), "CONTINUE"
+   * MainClass — the main class to use (only for CUSTOM_JAR)
+
+The shorthand syntax can be used to specify all of the above but the JSON syntax is more useful:   
+
+For example, a Hadoop streaming job might be specified as:
+    
+    [ {
+       "Type" : "STREAMING",
+       "Name" : "Multiply",
+       "ActionOnFailure" : "CONTINUE",
+       "Args" : [
+          "-files","s3://mybucket/prime-factors.py",
+          "-mapper","prime-factors.py",
+          "-reducer","aggregate",
+          "-input","s3://mybucket/multiply/input",
+          "-output","s3://mybucket/multiply/output"
+       ]
+    } ]
+    
+ The arguments are all specific to the [Hadoop Streaming program](http://hadoop.apache.org/docs/r2.6.0/hadoop-mapreduce-client/hadoop-mapreduce-client-core/HadoopStreaming.html).  Similarly,
+ any other program would (including your own custom jar) would have its own argument definition.
+ 
+ Once you have your JSON definition (`step.json` in this case), you can add it to your running cluster by:
+
+    aws emr add-steps --cluster-id <your-id> --steps file://./step.json
+
+### Running Steps via MRJob ###
+
+[MRJob](http://mrjob.readthedocs.org) is a very useful abstraction and has the ability to run jobs directly on EMR.  While you can use MRJob to start a cluster,
+a more useful technique is to run your MRJob program on an already started cluster.  
+
+Running on an existing cluster is easly done by two extra parameters:
+
+   1. Add the `-r emr` option to select the EMR runner.
+   2. Add the `--emr-job-flow-id your-cluster-id` to specify your existing cluster.
+   
+Since you are running on the cluster, there are some additional life-cycle options you may want to control.  First, by default, MRJob will upload your
+input (e.g. stdin) to S3 and download the output.  You'll probably want to run everything from S3 and this is easily done:
+
+   1. Specify your input bucket by just an extra argument to your program just as you might give it a file name but instead just give in the S3 bucket URI.
+   2. Use `--no-output` to turn off downloading the result and `--output-dir s3://yourbucket/yourpath` to specify the output S3 bucket.
+
+If you have supporting code for your program, you'll need to package it into an archive in tar/gz format.  Then just specify that on the command-line using `--python-archie code.tar.gz`
+   
+You may have changed the version of python on your cluster via a bootstrap action.  If so, you can specify the python command via `--python-bin`.  That command expects a command (or full path)
+that will run the python interpreter.
+
+### Killing Steps ###
+
+There is no easy way to kill a running step via the AWS CLI or the browser interface.  If you terminate the cluster, the step will be killed first but that is a 
+draconian way to kill a step.  If you stop the cluster, you will have restart the cluster and that can take quite awhile.
+
+The way you kill the step is to talk to Hadoop directly by the following:
+
+  1. SSH into the master node.  You'll find the connection information in the cluster details and then you'll do something like:
+  
+    `ssh hadoop@ec2-nn-nn-nn-nn.compute-1.amazonaws.com -i ~/your-identity.pem`
+      
+  2. Once you are connected, list the jobs with `mapred job -list`
+  
+  3. Locate the row that represents the step you'd like to kill.  At this point, a step has turned into a set of jobs.  If you only have one job, there will be only one row.
+  
+  4. The first column is labeled `JobId`.  Use that identifier to kill the job with `mapred job -kill id` where `id` is the value in that column.  
+    
+## Manipulating S3 Buckets via AWS CLI ##
 
 You can create a bucket by:
 
     aws s3 mb s3://mybucket/
 
-You should be familiar with how to use S3 via this tool:
+Listing a bucket:
 
     aws s3 ls s3://mybucket/
-    aws s3 cp file.txt s3://mybucket/
-    aws s3 rm s3://mybucket/file.txt
+    
+Copying a file to a path:
+
+    aws s3 cp file.txt s3://mybucket/somewhere/
+    
+Removing a key:
+
+    aws s3 rm s3://mybucket/somewhere/file.txt
+
+Syncing a directory to s3 (both ways):
+
     aws s3 sync dir s3://mybucket/dir
     aws s3 sync s3://mybucket/dir dir
-    aws s3 rm s3://mybucket/dir --recursive
+    
+
+Removing a set of keys via a prefix:
+
+    aws s3 rm s3://mybucket/somewhere/ --recursive
