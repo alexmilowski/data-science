@@ -137,7 +137,7 @@ configure Hadoop.
     
 ### Running Steps via AWS CLI ###
 
-The AWS CLI command `aws emr add-steps` is used to add steps to your cluster.  The cluster idenifier is necessary and you can find this in the cluster details.
+The AWS CLI command `aws emr add-steps` is used to add steps to your cluster.  The cluster identifier is necessary and you can find this in the cluster details.
 
 The step is described by a set of metadata:
 
@@ -177,7 +177,7 @@ For example, a Hadoop streaming job might be specified as:
 [MRJob](http://mrjob.readthedocs.org) is a very useful abstraction and has the ability to run jobs directly on EMR.  While you can use MRJob to start a cluster,
 a more useful technique is to run your MRJob program on an already started cluster.  
 
-Running on an existing cluster is easly done by two extra parameters:
+Running on an existing cluster is easily done by two extra parameters:
 
    1. Add the `-r emr` option to select the EMR runner.
    2. Add the `--emr-job-flow-id your-cluster-id` to specify your existing cluster.
@@ -188,10 +188,14 @@ input (e.g. stdin) to S3 and download the output.  You'll probably want to run e
    1. Specify your input bucket by just an extra argument to your program just as you might give it a file name but instead just give in the S3 bucket URI.
    2. Use `--no-output` to turn off downloading the result and `--output-dir s3://yourbucket/yourpath` to specify the output S3 bucket.
 
-If you have supporting code for your program, you'll need to package it into an archive in tar/gz format.  Then just specify that on the command-line using `--python-archie code.tar.gz`
+If you have supporting code for your program, you'll need to package it into an archive in tar/gz format.  Then just specify that on the command-line using `--python-archive code.tar.gz`
    
 You may have changed the version of python on your cluster via a bootstrap action.  If so, you can specify the python command via `--python-bin`.  That command expects a command (or full path)
 that will run the python interpreter.
+
+When you use the `--no-output` and `--output-dir` together with MRJob the results are stored on AWS S3.  You can interrupt the local MRJob process after the step has started 
+and it will continue to run on your cluster.  This allows you to terminate the local process and continue other work.  You will have to check the cluster interface online to
+see the status of your job.
 
 ### Killing Steps ###
 
@@ -230,8 +234,8 @@ Removing a key:
 
 Syncing a directory to s3 (both ways):
 
-    aws s3 sync dir s3://mybucket/dir
-    aws s3 sync s3://mybucket/dir dir
+    aws s3 sync somewhere s3://mybucket/somewhere
+    aws s3 sync s3://mybucket/somewhere somewhere
     
 
 Removing a set of keys via a prefix:
