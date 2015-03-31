@@ -121,3 +121,12 @@ There is a script called [run.sh](run.sh) that will launch your job on your clus
     gzip -dc wat.paths.gz | python s3.py | head -n 10 | ./run-step.sh myscript.py mybucket j-xxxxxxxxxxxxx
 
 where `j-xxxxxxxxxxxxx` is your cluster identifier.
+
+### 8. Discussion ###
+
+How long will it take to compute the domains for a partition?  For the whole crawl date?  For the whole data set?
+
+Does it scale?
+
+What do you need to do to make it scale?
+
