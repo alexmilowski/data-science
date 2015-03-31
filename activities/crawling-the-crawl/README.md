@@ -1,4 +1,4 @@
-# Crawling the Commong Crawl #
+# Crawling the Common Crawl #
 
 The common crawl is a data set hosted by AWS that represents a crawl of the Web.  The data set contains the raw web pages as well as 
 metadata and text extracts that are smaller in size.
@@ -105,7 +105,7 @@ a particular data set.
 
 Can you modify [ccex.py](ccex.py) to count domains?
 
-The WAT data in WARC format contains metadata extracted from the crawl for each page.  Process the data to extract and count the domain names.  Be careful to remove subdomains 
+The WAT data in WARC format contains metadata extracted from the crawl for each page.  Process the data to extract and count the domain names.  Be careful to remove sub-domains 
 so that variants like `www1.hp.com` and `www2.hp.com` reduce to `hp.com`.
 
 ### 7. Run it on a cluster ###
