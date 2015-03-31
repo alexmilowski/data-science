@@ -21,7 +21,7 @@ Use the AWS CLI to explore the data set (`s3://aws-publicdatasets/common-crawl/c
  3. What are the various data formats you can process?
  4. How is the data set partitioned?
  
- ### WARC, WET, WAT ###
+### WARC, WET, WAT ###
  
  1. There are three data resources stored by the common crawl: raw pages, metadata, and textual extraction.  Are they all stored in the same format?
  
