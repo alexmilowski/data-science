@@ -20,7 +20,7 @@ How to analyze tweets on S3 and create histogram.
 Therefore, I decided to make a histogram only for words with more 1000 counts. Please see “histogramForOver1000Counts.png”.
 3.      These are the python files used to run this part of the assignment:
         a. analyze.py - Retrieves a dictionary of frequent word and displays in a histogram. 
-        b. tweetanalyzer.py - A utility class that is used to get twitter files from S3 and create a dictionary of frequent words. 
+        b. tweetanalyzer.py - A utility class that is used to retrieve twitter files from S3 and create a dictionary of frequent words. 
 
 
 

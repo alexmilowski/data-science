@@ -59,8 +59,8 @@ class TweetAnalyzer:
                   word=word.lower().strip()
                   #word=word.encode("utf-8").lower().strip()
 	
-                  #excludes these helping words which we are not interested, and also exclude URLs 
-                  if word == "the" or word == "a" or word=="from" or word=="to" or word=="and" or word=="for" or word.startswith("http://") or word.startswith("https://"):
+                  #excludes these helping words which we are not interested, and also exclude URLs and username
+                  if word == "the" or word == "a" or word=="from" or word=="to" or word=="and" or word=="for" or word.startswith("http://") or word.startswith("https://") or word.startswith("@"):
                        continue
                   if word in self.wordList:
                        self.wordList[word] +=1
