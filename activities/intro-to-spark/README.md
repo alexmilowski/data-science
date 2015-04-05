@@ -108,10 +108,16 @@ You can try the same experiments later by creating actual clusters of various si
 the value for the `--master` option.
 
 
-## Problem Solving ##
+## Activity - Problem Solving ##
 
 The tweet data we prepared is from a conference.  How can we use Spark to answer the following questions?
 
  1. Who tweeted the most during the conference?
  2. What were the top 10 hash tags used?
  3. For a particular hour, how many tweets were produced?
+ 
+## Activity - Deploying to Clusters ##
+
+### Spark on EC2 ###
+
+### Spark on EMR ###
