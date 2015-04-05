@@ -43,7 +43,7 @@ We'll also use some randomly generated files:
     python random-text.py 1000000 10 < words > random-9.txt
 
 
-## Activity - Running some example ##
+## Activity - Run some example ##
 
 ### Hello World - Word Count ###
 
@@ -107,4 +107,11 @@ increase in speed as you add more workers?
 You can try the same experiments later by creating actual clusters of various sizes.  The only change would be
 the value for the `--master` option.
 
-    
+
+## Problem Solving ##
+
+The tweet data we prepared is from a conference.  How can we use Spark to answer the following questions?
+
+ 1. Who tweeted the most during the conference?
+ 2. What were the top 10 hash tags used?
+ 3. For a particular hour, how many tweets were produced?
