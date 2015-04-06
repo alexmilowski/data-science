@@ -31,16 +31,17 @@ We'll be using the same conference data from the [Organizing Acquired Data](../.
 We'll also use some randomly generated files:
 
     curl "http://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain" > words
-    python random-text.py 1000000 10 < words > random-0.txt
-    python random-text.py 1000000 10 < words > random-1.txt
-    python random-text.py 1000000 10 < words > random-2.txt
-    python random-text.py 1000000 10 < words > random-3.txt
-    python random-text.py 1000000 10 < words > random-4.txt
-    python random-text.py 1000000 10 < words > random-5.txt
-    python random-text.py 1000000 10 < words > random-6.txt
-    python random-text.py 1000000 10 < words > random-7.txt
-    python random-text.py 1000000 10 < words > random-8.txt
-    python random-text.py 1000000 10 < words > random-9.txt
+    mkdir random
+    python random-text.py 1000000 10 < words > random/random-0.txt
+    python random-text.py 1000000 10 < words > random/random-1.txt
+    python random-text.py 1000000 10 < words > random/random-2.txt
+    python random-text.py 1000000 10 < words > random/random-3.txt
+    python random-text.py 1000000 10 < words > random/random-4.txt
+    python random-text.py 1000000 10 < words > random/random-5.txt
+    python random-text.py 1000000 10 < words > random/random-6.txt
+    python random-text.py 1000000 10 < words > random/random-7.txt
+    python random-text.py 1000000 10 < words > random/random-8.txt
+    python random-text.py 1000000 10 < words > random/random-9.txt
 
 
 ## Activity - Run some example ##
@@ -49,13 +50,13 @@ We'll also use some randomly generated files:
 
 The classic "hello world" of map/reduce is a simple word count.  An example implementation is in [wordcount.py](wordcount.py) and can be run as follows:
 
-    $SPARK_HOME/bin/spark-submit wordcount.py "random-large-*.txt"
+    $SPARK_HOME/bin/spark-submit wordcount.py "random/random-*.txt"
     
 This will run the word count over the randomly generated data (from the setup) of 100 million words.
 
 The RDD contains a wild card and is effectively the same as:
 
-    lines = sc.textFile("random-large-*.txt", 1)
+    lines = sc.textFile("random/random-*.txt", 1)
     
 and the wild card allows Spark to access all the generated data files.
 
@@ -120,4 +121,68 @@ The tweet data we prepared is from a conference.  How can we use Spark to answer
 
 ### Spark on EC2 ###
 
+#### Overview ####
+
+You can start a standalone Spark cluster on EC2 using the program `spark-ec2` located in the `ec2` directory of the spark distribution.  You'll need:
+
+  * your key name
+  * your local key (e.g. .pem file)
+  * a preferred zone
+  * your AWS key and secret
+  
+You'll need to setup two environment variables to contain your AWS credentials:
+
+    export AWS_SECRET_ACCESS_KEY=xxxxxxxxx
+    export AWS_ACCESS_KEY_ID=xxxxxxxx
+  
+A simple cluster can then be launched as follows:
+
+    $SPARK_HOME/ec2/spark-ec2 -k yourkey -i yourkey.pem -s 3 -t m3.medium -z us-east-1c --copy-aws-credentials launch "Spark Test"
+   
+At the very end you'll see the master hostname and you can visit this in your browser:
+
+    http://ec2-nn-nn-nn-nn.compute-1.amazonaws.com:8080/
+    
+Spark jobs are run from the master node of the cluster.  You can login (ssh) via:
+
+    $SPARK_HOME/ec2/spark-ec2 -k yourkey -i yourkey.pem login "Spark Test"
+    
+Finally, you can terminate your cluster:
+
+    $SPARK_HOME/ec2/spark-ec2 -k yourkey -i yourkey.pem destroy "Spark Test"
+    
+Running a job requires two things:
+
+  1. Your code (driver) must be transferred to the master node.
+  2. Your data must be accessible by all nodes (copied to each node, put into HDFS or S3, etc.)
+
+#### Testing ####
+
+First let's try transferring our data and code to the master node:
+
+    scp -i yourkey.pem wordcount.py root@ec2-nn-nn-nn-nn.compute-1.amazonaws.com:~
+    scp -i yourkey.pem random/random-0.txt root@ec2-nn-nn-nn-nn.compute-1.amazonaws.com:~
+   
+Note: We'll only use the first set of random works to minimize network bandwidth use.
+
+Then login:
+
+    $SPARK_HOME/ec2/spark-ec2 -k yourkey -i yourkey.pem login "Spark Test"
+   
+Run a job:
+
+    time spark/bin/spark-submit --master spark://ec2-nn-nn-nn-nn.compute-1.amazonaws.com:7077 wordcount.py random-0.txt > /dev/null
+    
+Now we can copy that same file to S3 from your local machine:
+
+    aws s3 cp random/random-0.txt s3://mybucket/random/random-0.txt
+    
+and try the same job with an S3 URI (note the use of s3n)
+
+    time spark/bin/spark-submit --master spark://ec2-nn-nn-nn-nn.compute-1.amazonaws.com:7077 wordcount.py s3n://mybucket/random/random-0.txt > /dev/null
+
+You should see a notable difference in processing time as S3 is far slower than local files.
+
 ### Spark on EMR ###
+
+TBD ... yarn, yarn, yarn
