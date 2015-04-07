@@ -134,6 +134,28 @@ You'll need to setup two environment variables to contain your AWS credentials:
 
     export AWS_SECRET_ACCESS_KEY=xxxxxxxxx
     export AWS_ACCESS_KEY_ID=xxxxxxxx
+    
+You will need to make sure your access key is allowed to start EC2 instances.  You may need to modify the policy for the access key in "Identity and Access Management" and at minimum you'll
+want:
+
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmtnnnnnn",
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:*"
+                ],
+                "Resource": [
+                     "*"
+                ]
+            }
+        ]
+    }
+    
+You can create this policy by clicking on "Create Another Policy" when viewing the group.  Use the policy generator and select "Amazon EC2" from the "AWS Service", 
+select "All Actions" for "Actions", and enter "*" for "Amazon Resource Name (ARN)".  This is the most liberal policy and you can certain restrict it from there.
   
 A simple cluster can then be launched as follows:
 
