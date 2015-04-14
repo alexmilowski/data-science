@@ -37,9 +37,19 @@ class TweetSerializer:
       
       try:
       	self.out = open(fname,"w+")
+	
+
+
       except:
 	print "Opening file failed. Exiting.. "
-        exit()         
+        exit() 
+
+      #self.out.write("bleh")
+      #self.out.close()
+      #key = Key(self.bucket)
+      #key.key=self.fileName
+      #key.set_contents_from_filename("tweets/"+self.fileName)
+      #exit()        
 
       #put wrapper for all tweet json
       self.out.write("[\n")
@@ -49,19 +59,19 @@ class TweetSerializer:
    def end(self):
 
       #stop file writing, and upload file to S3
-      if self.out is not None:'
+      if self.out is not None:
 
          self.out.write("\n]\n")
          self.out.close()
          key = Key(self.bucket)
          key.key=self.fileName
  
-         try:
-	         key.set_contents_from_filename("tweets/"+self.fileName)
-	 except:
-                 print "Upload to s3 failed. Exiting.."
-                 exit()                 
-
+         #try:
+	 key.set_contents_from_filename("tweets/"+self.fileName)
+	 #except:
+         #        print "Upload to s3 failed. Exiting.."
+         #        exit()                 
+	 #exit()
       #reset out object	
       self.out = None
 

@@ -17,8 +17,6 @@ from boto.s3.key import Key
 import numpy as np
 import pylab as pl
 import signal
-import dateutil.parser
-import datetime
 
 #handle interrupt gracefully
 def interrupt(signum, frame):
@@ -32,8 +30,15 @@ aws_bucket_name=''
 
 consumer_key = ""
 consumer_secret = ""
+
 access_token = ""
 access_token_secret = ""
+
+#configure tweepy
+consumer_key = "10G4NlBUpM9nusmE9nSoeGQnk"
+consumer_secret = "KcH2Ykf253L0tTCuzIyqDUPnkEZ7mZhIiHCYiS84LbZNCsQwRu"
+access_token = "2988143343-waN3T7DFy7j0Yn95hDdXOMLpdRfHzG66SnOZlHO"
+access_token_secret = "TDd8WId2f7Cw8jDLdPcjJRM5lTlMGYiuLjUl1ped21euS"
 
 auth = None
 api = None
@@ -48,7 +53,9 @@ except:
    exit()
 
 #set search term
-q = urllib.quote_plus("#microsoft OR #mojang")
+#q = urllib.quote_plus("#microsoft OR #mojang")
+q = urllib.quote_plus("derek trucks")
+
 #q = urllib.quote_plus(sys.argv[1])  # URL encoded query
 
 #retrieve stard and end date from command argument
@@ -63,29 +70,15 @@ try:
    bucket = conn.get_bucket(aws_bucket_name)
 except:
    print "S3 connection failed. Exiting..."
-   exit()
+#  exit()
 
 
+#instantiate tweetSerializer - a utility class that takes care of chunking, and also uplaod file to S3
+tweetSerializer = tweetserializer.TweetSerializer(500,bucket,start)
 
-currentDate = dateutil.parser.parse(start)
+for tweet in tweepy.Cursor(api.search,q=q+" since:" + start + " until:" + end).items():
+   tweetSerializer.write(tweet)
 
-
-while (currentDate.strftime("%Y-%m-%d") != end ):
-	nextDay = currentDate + datetime.timedelta(days=1)
-
-	#print currentDate.strftime("%Y-%m-%d") + " " + nextDay.strftime("%Y-%m-%d")
-	currentDateString = currentDate.strftime("%Y-%m-%d")
-	nextDateString = nextDay.strftime("%Y-%m-%d")
-	
-	#instantiate tweetSerializer - a utility class that takes care of chunking, and also uplaod file to S3
-	tweetSerializer = tweetserializer.TweetSerializer(500,bucket,currentDateString)
-
-	for tweet in tweepy.Cursor(api.search,q=q+" since:" + currentDateString + " until:" + nextDateString).items():
-   		tweetSerializer.write(tweet)
-
-	#if there is any open file (total number of tweets %500 was not 0), close the last file and upload to S3
-	tweetSerializer.end()
-
-	#increment time
-	currentDate = currentDate + datetime.timedelta(days=1)
+#if there is any open file (total number of tweets %500 was not 0), close the last file and upload to S3
+tweetSerializer.end()
 
