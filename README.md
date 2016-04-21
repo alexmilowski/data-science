@@ -1,12 +1,20 @@
+# Introduction to Data Science
+
 Data Science is a process of acquiring, organizing, analyzing, and representing information.  The activities in the process focus primarily on learning various technologies in support of each of the major stages of any data science process.
 
 ![Data Science Process](data-science.png)
 
-# How to Turn in Assignments #
+## Activities
+
+Guided activities provide you examples of various technologies and how they can be used for particular tasks.  Each activity should be able to be accomplished as a self-study.
+
+See [Activities](./activities/) section for a list of various self-guided studies.
+
+## Assignments
 
 If you are a student in one of my classes, you'll be using github to turn in assignments.
 
-## Setup ##
+### Setup
 
 You'll need to create a repository for your assignments.  You can [request a discount](https://education.github.com/discount_requests/new) as a 
 student so that you can have a private repository.  Otherwise, all your assignments will
@@ -15,7 +23,7 @@ be publically accessible.
 Once you've setup your repository, you'll want to add your instructor as a collaborator.  That way they can merge your 
 pull requests when they are graded.
 
-## The Process ##
+### Turning in Assignments
 
  1. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/) of your repository for the homework and make your changes in that branch.
  2. Commit and push your changes to the branch.
