@@ -1,8 +1,10 @@
-This project contains activities and code samples for the process of acquiring and organizing information for data science.
+Data Science is a process of acquiring, organizing, analyzing, and representing information.  The activities in the process focus primarily on learning various technologies in support of each of the major stages of any data science process.
 
 ![Data Science Process](data-science.png)
 
 # How to Turn in Assignments #
+
+If you are a student in one of my classes, you'll be using github to turn in assignments.
 
 ## Setup ##
 
