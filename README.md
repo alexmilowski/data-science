@@ -10,6 +10,10 @@ Guided activities provide you examples of various technologies and how they can 
 
 See [Activities](./activities/) section for a list of various self-guided studies.
 
+## Sessions
+
+An agenda for each  [session](./sessions/) is available.
+
 ## Assignments
 
 If you are a student in one of my classes, you'll be using github to turn in assignments.
