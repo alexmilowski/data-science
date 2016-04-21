@@ -1,6 +1,6 @@
 This project contains activities and code samples for the process of acquiring and organizing information for data science.
 
-![Data Science Process](data-science.svg)
+![Data Science Process](data-science.png)
 
 # How to Turn in Assignments #
 
