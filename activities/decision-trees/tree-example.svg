@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="443.379" height="232" viewBox="0, 0, 443.379, 232">
+  <g id="Layer_1" transform="translate(-21.695, -27.333)">
+    <text transform="matrix(1, 0, 0, 1, 149.69, 36.333)">
+      <tspan x="-63.357" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Is it warm outside?</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 227.531, 92.833)">
+      <tspan x="-72.198" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">San Francisco warm?</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 332.794, 162.833)">
+      <tspan x="-37.065" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Really hot?</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 419.588, 241.833)">
+      <tspan x="-36.813" y="-3.5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Skip lunch, </tspan>
+      <tspan x="-45.486" y="13.5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">get ice cream</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 238.2, 241.833)">
+      <tspan x="-54.824" y="-3.5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Outside, without </tspan>
+      <tspan x="-32.284" y="13.5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">a jacket!!!</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 124.061, 178.833)">
+      <tspan x="-42.777" y="-13" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Okay, maybe </tspan>
+      <tspan x="-51.716" y="4" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">outside ... bring </tspan>
+      <tspan x="-26.446" y="21" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">a jacket</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 41.771, 92.833)">
+      <tspan x="-20.076" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">Inside</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 227.531, 111.833)">
+      <tspan x="-21.007" y="4" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">&lt; 75℉</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 145.34, 54.333)">
+      <tspan x="-21.007" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">&lt; 65℉</tspan>
+    </text>
+    <g>
+      <path d="M117.833,58.833 L59.245,81.132" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M58.178,78.328 L51.768,83.978 L60.312,83.936 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M171.833,58.833 L224.53,80.862" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M223.373,83.63 L231.911,83.948 L225.687,78.094 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 70.257, 61.833)">
+      <tspan x="-11.41" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">yes</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 209.833, 61.833)">
+      <tspan x="-8.428" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">no</tspan>
+    </text>
+    <g>
+      <path d="M201.905,112.833 L139.673,147.914" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M138.2,145.3 L132.704,151.842 L141.147,150.527 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M254.833,112.833 L323.143,148.196" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M321.764,150.86 L330.247,151.874 L324.522,145.532 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 325.34, 180.833)">
+      <tspan x="-21.007" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">&lt; 85℉</tspan>
+    </text>
+    <g>
+      <path d="M300.229,183.833 L244.391,219.946" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M242.761,217.427 L237.673,224.29 L246.02,222.465 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M351.847,183.833 L408.577,219.996" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M406.965,222.525 L415.323,224.296 L410.19,217.466 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 156.937, 121.333)">
+      <tspan x="-11.41" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">yes</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 301.157, 121.333)">
+      <tspan x="-8.428" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">no</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 252.923, 196.833)">
+      <tspan x="-11.41" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">yes</tspan>
+    </text>
+    <text transform="matrix(1, 0, 0, 1, 393.239, 196.833)">
+      <tspan x="-8.428" y="5" font-family="HelveticaNeue-Bold" font-size="14" fill="#000000">no</tspan>
+    </text>
+  </g>
+</svg>
