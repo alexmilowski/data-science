@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python Lumberjack</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+      h1, h2, h3, h4, h5 {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;;
+        font-weight: normal;
+         color: rgb(50,50,50);
+      }
+      .remark-slide h1 {
+         background-color: #cc6600;
+         margin-top: 0em;
+         padding-top: 0.25em;
+         padding-bottom: 0.25em;
+         font-size: 1.5em;
+      }
+      .small { font-size: 0.75em; }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono';
+       }
+      .remark-slide-content { font-size: 1.75em; padding: 0em; padding-left: 0.5em;}
+      .remark-slide .remark-slide-content h1 {
+         margin-bottom: 0em;
+         margin-left: -1em;
+      }
+      .remark-slide .normal h1 {
+         padding-left: 1em;
+      }
+      .remark-slide .normal h1 + * {
+        margin-top: 1em;
+      }
+     .remark-slide .normal h1 .range {
+        font-size: 0.75em;
+        padding-left: 1em;
+      }
+      .remark-slide .title {
+         background-color: rgb(210,210,210);
+      }
+      .remark-slide .title h2 {
+         background-color: #cc6600;
+         margin-top: 0em;
+         margin-bottom: 0em;
+      }
+      .remark-slide .title h3 {
+         background-color: #cc6600;
+         margin-top: 0em;
+         margin-bottom: 0em;
+      }
+      .remark-slide .separator {
+         background-color: rgb(210,210,210);
+      }
+      .remark-slide .separator h2 {
+         margin-top: 0em;
+         margin-bottom: 0em;
+         padding-top: 0.125em;
+         padding-bottom: 0.125em;
+      }
+      .remark-slide-content li {
+         margin-bottom: 1em;  
+      }
+     .remark-slide-content p img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+     }
+#output {
+    width: 40%;
+     float: left;
+     margin-left: 1em;
+}
+
+#output {
+    text-align: center;
+}
+
+#map {
+    height: 500px;
+}
+
+     #form {
+        width: 40%;
+        font-size: 0.5em;
+        float: left;
+        }
+#form input {
+   font-size: 0.5em;
+}
+#log {
+    font-family: monospace;
+    font-size: 10pt;
+    line-height: 1em;
+     max-height: 15em;
+    overflow: scroll;
+}
+
+#log p {
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+     .demolink { position: fixed; top: 1em; right: 1em; font-size: 0.5em; }
+     .lefthalf { float: left;  width: 45%; margin-right: 1em; }
+     .rightfixed { position: fixed; top: 4em; right: 1em; }
+     .scale50 img { width: 50%; }
+     .scale75 img { width: 75%; }
+     .scale100 img { width: 100%; }
+     .scale125 img { width: 125%; }
+     .small li {
+        margin-bottom: 0.25em;
+     }
+     .indent {
+        margin-left: 2em;
+     }
+     .math {
+        display:block;
+        font-size: 0.8125em;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+     }
+     .remark-slide-content {
+        counter-reset: cite
+     }
+     .remark-slide-content cite {
+        counter-increment: cite;
+        display: block;
+        font-size: 0.625em;
+     }
+     .remark-slide-content cite::before {
+        content: "[" counter(cite) "] ";
+     }
+
+
+ </style>
+       <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/heatmap.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/RDFa.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/mapreduce.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/gridavg.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/barnes-interpolation.js">//</script>
+       <script type="text/javascript" src="../2016-05-24/xmlprague-2014/barnes.js">//</script>
+       <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  </head>
+  <body>
+<textarea id="source">
+
+class: title, center, middle
+
+# Decision Trees and Random Forests
+# R. Alexander Miłowski
+
+
+---
+
+class: separator, center, middle
+
+# ⩚ Decision Trees
+
+---
+class: normal
+# ⩚ What is a **Decision Tree**?
+
+> One feature (temperature) -  should we eat outside?
+
+.scale75[![tree example](tree-example.svg)]
+
+---
+
+class: normal
+# ⩚ More formally, ... What is a **Decision Tree**?
+
+> a tree (graph) model of decisions and their outcomes
+
+.scale50[![decision tree](decision-tree.svg)]
+
+> tree classifiers iteratively split a space X into smaller subspaces
+
+<cite id="decision-tree">https://en.wikipedia.org/wiki/Decision_tree</cite>
+<cite id="tree-learning">https://onlinecourses.science.psu.edu/stat857/node/51</cite>
+<cite id="decision-tree-learning">https://en.wikipedia.org/wiki/Decision_tree_learning</cite>
+
+
+---
+class: normal
+# ⩚ Classification - separate into classes
+
+> A **Classification Tree** is a decision tree that separates data into discrete classes.
+
+.scale50[![from http://scikit-learn.org/stable/auto_examples/tree/plot_iris.html#example-tree-plot-iris-py](http://scikit-learn.org/stable/_images/plot_iris_0011.png)]
+
+<cite>http://scikit-learn.org/stable/auto_examples/tree/plot_iris.html#example-tree-plot-iris-py</cite>
+
+---
+class: normal
+# ⩚ Regression - predicting a value
+
+> A **Regression Tree** is a decision tree that is used to predict a continuous value.
+
+.scale50[![from http://scikit-learn.org/stable/auto_examples/tree/plot_tree_regression.html](http://scikit-learn.org/stable/_images/plot_tree_regression_0011.png)]
+
+<cite>http://www.simafore.com/blog/bid/62482/2-main-differences-between-classification-and-regression-trees</cite>
+<cite>http://scikit-learn.org/stable/modules/tree.html#regression</cite>
+
+---
+class: normal
+
+# Impurity
+
+At every split in a tree:
+
+ * we start with a mix of classes at the parent
+ * each child contains a portion of the parent's items
+ * each child has a new mix of classes
+
+Impurity is a semi-definite measurement of the mix of classes - zero
+is purely one class.
+
+---
+class: normal
+# ⩚ Maximizing Information Gain
+
+> endeavour for each split to maximize "information gain"
+
+<math>
+   <mi>IG</mi><mfenced><msub><mi>D</mi><mi>p</mi></msub><mi>f</mi></mfenced>
+   <mo>=</mo>
+   <mi>I</mi><mfenced><msub><mi>D</mi><mi>p</mi></msub></mfenced>
+   <mo>-</mo>
+   <mrow>
+   <munderover>
+      <mi>∑</mi>
+      <mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow>
+      <mi>m</mi>
+   </munderover>
+   <mfrac>
+      <msub><mi>N</mi><mi>j</mi></msub>
+      <msub><mi>N</mi><mi>p</mi></msub>
+   </mfrac>
+   <mi>I</mi><mfenced><msub><mi>D</mi><mi>j</mi></msub></mfenced>
+   </mrow>
+</math>
+
+where <math><msub><mi>D</mi><mi>j</mi></msub></math> is the data set at <math><mi>j</mi></math>, <math><msub><mi>N</mi><mi>j</mi></msub></math> is the number of samples at <math><mi>j</mi></math>, and <math><mi>I</mi><mfenced><mi>D</mi></mfenced></math> is a measure of "impurity".
+
+The binary tree case is then just:
+
+<math>
+   <mi>IG</mi><mfenced><msub><mi>D</mi><mi>p</mi></msub><mi>f</mi></mfenced>
+   <mo>=</mo>
+   <mi>I</mi><mfenced><msub><mi>D</mi><mi>p</mi></msub></mfenced>
+   <mo>-</mo>
+   <mfrac>
+      <msub><mi>N</mi><mi>left</mi></msub>
+      <msub><mi>N</mi><mi>p</mi></msub>
+   </mfrac>
+   <mi>I</mi><mfenced><msub><mi>D</mi><mi>left</mi></msub></mfenced>
+   <mo>-</mo>
+   <mfrac>
+      <msub><mi>N</mi><mi>right</mi></msub>
+      <msub><mi>N</mi><mi>p</mi></msub>
+   </mfrac>
+   <mi>I</mi><mfenced><msub><mi>D</mi><mi>right</mi></msub></mfenced>
+</math>
+
+<cite>"Decision Tree Learning", Python Machine Learning</cite>
+
+---
+class: normal
+# ⩚ Gini Impurity
+
+> "minimizes the probability of misclassification"
+
+<math>
+   <msub><mi>I</mi><mi>G</mi></msub><mfenced><mi>t</mi></mfenced>
+   <mo>=</mo>
+   <munderover>
+      <mi>∑</mi>
+      <mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow>
+      <mi>c</mi>
+   </munderover>
+   <mrow><mi>p</mi><mfenced><mrow><mi>i</mi><mo>|</mo><mi>t</mi></mrow></mfenced></mrow>
+   <mfenced>
+      <mrow>
+         <mn>1</mn><mo>-</mo>
+         <mrow><mi>p</mi><mfenced><mrow><mi>i</mi><mo>|</mo><mi>t</mi></mrow></mfenced></mrow>
+      </mrow>
+   </mfenced>
+   <mo>=</mo>
+   <mn>1</mn>
+   <mo>-</mo>
+   <munderover>
+      <mi>∑</mi>
+      <mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow>
+      <mi>c</mi>
+   </munderover>
+   <msup><mrow><mi>p</mi><mfenced><mrow><mi>i</mi><mo>|</mo><mi>t</mi></mrow></mfenced></mrow><mn>2</mn></msup>
+</math>
+
+where <math><mi>p</mi><mfenced><mrow><mi>i</mi><mo>|</mo><mi>t</mi></mrow></mfenced></math> is proportion of samples that belong to class <math><mi>i</mi></math> for node <math><mi>t</mi></math>.
+
+> What happens if <math><mi>c</mi><mo>=</mo><mn>2</mn></math> (binary) and the classes are perfectly mixed?
+
+<cite>"Decision tree learning", Python Machine Learning</cite>
+
+---
+class: normal
+# ⩚ Example - a tree utility
+
+The `iris.tree()` utility function builds a decision tree using the sample Iris data set:
+
+
+```python
+...
+from sklearn import datasets
+from sklearn.cross_validation import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+def tree(alg):
+   iris = datasets.load_iris()
+   X = iris.data[:,[2,3]]
+   y = iris.target
+
+   # Create a training set with a 30% sample and initial random_state so we get similar results
+   X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=0)
+
+   # print out the cross validation score
+   scores = cross_val_score(alg,X,y)
+   print('accuracy {:0.2f} (± {:0.2f})'.format(scores.mean(),scores.std()))
+
+   # recombine our data
+   X_combined = np.vstack((X_train,X_test))
+   y_combined = np.hstack((y_train,y_test))
+
+   # plot the regions and data
+   regions.plot(X_combined,y_combined,classifier=alg,test_idx=range(105,150))
+   ...
+
+```
+
+---
+class: normal
+# ⩚ Example - Decision Tree 
+
+Building a decision tree is simple:
+
+```python
+import iris_tree as iris
+from sklearn.tree import DecisionTreeClassifier
+
+dtree = DecisionTreeClassifier(criterion='gini',max_depth=3,random_state=0)
+
+iris.tree(dtree)
+
+```
+
+Notes:
+* `criterion` parameter sets the impurity function - `gini` (default) or `entropy` (yields similar results)
+* `random_state` enables consistent results - remove it in production?
+* `max_depth` can be omitted - why did we choose three?
+
+---
+class: normal
+# ⩚ Pickles anyone?
+
+Can you save your model by pickling?
+
+```python
+import pickle
+s = pickle.dumps(dtree)
+dtree2 = pickle.loads(s)
+```
+
+Rebuilding a similar model requires additional metadata along with the pickled model:
+* The training data, e.g. a reference to a immutable snapshot
+* The python source code used to generate the model
+* The versions of scikit-learn and its dependencies
+* The cross validation score obtained on the training data
+
+<cite>http://scikit-learn.org/stable/modules/model_persistence.html#security-maintainability-limitations</cite>
+
+---
+class: normal
+
+# ⩚ Over-fitting
+
+Decision trees are prone to overfitting:
+
+* unstable because small variations in the data might result in a completely different tree
+* learning an optimal decision tree is known to be NP-complete
+* learners create biased trees if some features dominate
+
+<cite>http://scikit-learn.org/stable/modules/tree.html</cite>
+
+---
+class: normal
+# ⩚ Strategies for Pruning &amp; Validation
+
+We want to evaluate our tree for overfitting:
+
+* splitting a training set reserving some for validation
+* may result in too little data
+* resulting in poor outcomes (decision trees)
+* too much data requires large resources
+* may be impractical
+
+Pruning (removing subtrees) helps mitigate these issues.
+
+---
+class: normal
+
+# ⩚ Pruning Trees
+
+For unseen data, the classification error may actually increase;
+parent node was better.
+
+Strategies for avoiding overfitting:
+
+  1. stop the tree from growing statistically insignificant subtrees (pre-prune) - avoid, may perform poorly
+  2. grow a full tree and post-prune (e.g., significance testing via chi-square test) - lots of data, computation intensive
+
+<cite>https://class.coursera.org/machlearning-001/lecture/163</cite>
+<cite>https://en.wikipedia.org/wiki/Pruning_(decision_trees)</cite>
+<cite>http://www.saedsayad.com/decision_tree_overfitting.htm</cite>
+
+---
+class: normal
+
+# ⩚ Reduced-Error Pruning
+Split the data into *training* and *validation* sets:
+
+Repeat until pruning increases error:
+
+ 1. Evaluate the impact of removing each node (i.e., the subtree) against the validation set.
+ 2. Greedily remove the one that most improves the validation set accuracy.
+
+
+---
+
+class: separator, center, middle
+
+# ⩓ Random Forests
+## Build better trees!
+
+---
+class: normal
+
+# Bagging
+
+1. Generate a set of "bootstrap" training sets by sampling with replacement
+2. Train on a model on each training set
+3. Combine outcomes for new data by majority vote
+
+<cite>https://en.wikipedia.org/wiki/Bootstrap_aggregating</cite>
+
+---
+class: normal
+
+# ⩓ Bagging to Random Forests
+
+In addition to bagging:
+
+> select a random sample of features without replacement for each split
+
+Result: 
+* the trees are more independent
+* as the combination of bootstrap samples and random draws of predictors
+* avoids dominant features
+* fitted values across trees are more independent
+
+<cite>https://onlinecourses.science.psu.edu/stat857/node/181</cite>
+<cite>https://en.wikipedia.org/wiki/Random_forest</cite>
+
+---
+class: normal
+# ⩓ Advantages
+
+* works with a large number of features
+* less susceptible to overfitting due to dual of random bootstrap and random feature selection
+* enables less dominant features to define a split
+
+---
+class: normal
+# ⩓ Example - A Random Forest Classifier
+
+Building a forest classifier is simple:
+
+```python
+import iris_tree as iris
+from sklearn.ensemble import RandomForestClassifier
+
+forest = RandomForestClassifier(criterion='gini',n_estimators=10,max_depth=3,
+                                random_state=1,n_jobs=2)
+
+iris.tree(forest)
+```
+
+Notes:
+* `criterion` parameter sets the impurity function - `gini` (default) or `entropy` (yields similar results)
+* `n_estimators` number of trees in the forest
+* `n_jobs` controls parallel execution
+
+---
+class: normal
+
+# Boosting - yet another way
+
+Combine weak learners:
+
+1. Initial a set of uniform weights for each example in a training set.
+2. Apply the learner to the weighted training set; increase the weights of the misclassified examples
+3. Combine the model by weighted voting
+
+Examples in scikit:
+ * Gradient Tree Boosting - lacks parallelism so less scalable
+ * AdaBoost - "best out of box" ?
+
+<cite>https://en.wikipedia.org/wiki/AdaBoost</cite>
+
+
+---
+class: normal
+
+# ⩓ Bias / Variance Tradeoff
+
+![bias variance](Bias_Variance.jpg)
+
+---
+
+# ⩓ Bias / Variance Tradeoff
+
+
+Remember:
+
+ * **bias** - difference between average prediction and the truth
+ * **variance** - difference between average prediction and a particular prediction
+
+Strong learners will capture the variance regardless of the truth.  Given enough data and enough models, their average will be very close to the "true curve".
+
+> "...bias and variance are equally important and one should not be improved at the excessive expense to the other."
+
+<cite>http://scott.fortmann-roe.com/docs/BiasVariance.html</cite>
+---
+class: normal
+
+# Ensemble Methods - reducing variance
+Decision trees often have low bias.
+
+Ensemble methods can reduce variance without increasing bias:
+  * averages of low bias models have low bias
+  * the average will also have lower variance
+
+---
+class: normal
+# Bias / Variance in Random Forests
+
+For Random Forests:
+
+ * the bias of the result is equivalent to the bias of the individual models
+ * the variance is reduced by the majority vote
+ * more trees in the forest reduces variance; increases computation
+ * bias can be reduced by increasing features with minor computational cost
+ * algorithm allows "local features" to participate due to random selection
+
+<cite>http://blog.fliptop.com/blog/2015/03/02/bias-variance-and-overfitting-machine-learning-overview/</cite>
+<cite>http://scott.fortmann-roe.com/docs/BiasVariance.html</cite>
+
+
+</textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
