@@ -66,7 +66,8 @@
         margin-left: auto;
         margin-right: auto;
         display: block;
-     }
+      }
+      math { font-size: 1.5em; }
 #output {
     width: 40%;
      float: left;
@@ -422,6 +423,8 @@ Strategies for avoiding overfitting:
   1. stop the tree from growing statistically insignificant subtrees (pre-prune) - avoid, may perform poorly
   2. grow a full tree and post-prune (e.g., significance testing via chi-square test) - lots of data, computation intensive
 
+Note: no pruning in scikit-learn ... 
+
 <cite>https://class.coursera.org/machlearning-001/lecture/163</cite>
 <cite>https://en.wikipedia.org/wiki/Pruning_(decision_trees)</cite>
 <cite>http://www.saedsayad.com/decision_tree_overfitting.htm</cite>
@@ -543,15 +546,18 @@ Strong learners will capture the variance regardless of the truth.  Given enough
 > "...bias and variance are equally important and one should not be improved at the excessive expense to the other."
 
 <cite>http://scott.fortmann-roe.com/docs/BiasVariance.html</cite>
+<cite>https://en.wikipedia.org/wiki/Bias–variance_tradeoff</cite>
 ---
 class: normal
 
 # Ensemble Methods - reducing variance
-Decision trees often have low bias.
+Decision trees often have low bias / high variance
 
 Ensemble methods can reduce variance without increasing bias:
-  * averages of low bias models have low bias
-  * the average will also have lower variance
+ * averages of low bias models have low bias
+ * the average will also have lower variance
+
+<cite>https://en.wikipedia.org/wiki/Random_forest</cite>
 
 ---
 class: normal
