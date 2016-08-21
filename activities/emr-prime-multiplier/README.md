@@ -43,18 +43,20 @@ or using JSON:
     
 where `step.json` is:
     
-    {
-       "Type" : "STREAMING",
-       "Name" : "Multiply",
-       "ActionOnFailure" : "CONTINUE",
-       "Args" : [
-          "-files","s3://mybucket/prime-factors.py",
-          "-mapper","prime-factors.py",
-          "-reducer","aggregate",
-          "-input","s3://mybucket/multiply/input",
-          "-output","s3://mybucket/multiply/output"
-       ]
-    }
+    [
+        {
+           "Type" : "STREAMING",
+           "Name" : "Multiply",
+           "ActionOnFailure" : "CONTINUE",
+           "Args" : [
+              "-files","s3://mybucket/prime-factors.py",
+              "-mapper","prime-factors.py",
+              "-reducer","aggregate",
+              "-input","s3://mybucket/multiply/input",
+              "-output","s3://mybucket/multiply/output"
+           ]
+        }
+    ]
     
 Note: don't forget to use your cluster id and bucket name in the above.
 
@@ -68,7 +70,7 @@ You can monitor its progress from the console or via:
 
 Sync the output:
 
-    aws s3 sync s3://mybucket/multiply/output/multiply/output/
+    aws s3 sync s3://mybucket/multiply/output/ multiply/output/
    
 You should now have 4 files:
 
