@@ -1,0 +1,31 @@
+Janak Mayer
+
+DATASCI W205: Storing and Retrieving Data
+
+Assignment 1
+-----------------------------------------------------------------------
+
+Question 3 - How long did it take to run the process for each of these?
+
+    a) Running Locally:
+    	
+    	115.37s user
+        4.73s system
+        98% cpu
+        2:01.70 total
+
+    b) Running on AWS EMR
+    	
+    	1.33s user
+        0.16s system
+        0% cpu
+        13:01.85 total
+
+Question 4 - How many "address" tags are there in the input?
+
+    - The tag "address" occurs 2042 times
+
+Question 5 - Does the local version and the EMR version give the same answer?
+
+    - Both versions give the same answer to the number of "address" tags
+    - Both versions also give the same number of output rows (5140), however these are split between two "sequential" files in the local version, and three "parallel" files in the EMR version

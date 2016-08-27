@@ -26,6 +26,8 @@ Acquire relevant data around the Microsoft / Mojang for a recent week.  To accom
  
 1. A link to your S3 bucket documented in your README.md file.  Make sure to make it publicly accessible.
 
+http://janakmayer.berkeley.storingretrieving.s3.amazonaws.com/twitter-assignment/
+
 2. Your twitter acquisition code.
 
 3. The histogram.
